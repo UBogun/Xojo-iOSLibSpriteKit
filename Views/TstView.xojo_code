@@ -12,10 +12,10 @@ Begin iosView TstView
       AccessibilityLabel=   ""
       AllowsTransparency=   False
       Asynchronous    =   False
-      AutoLayout      =   ImageView1, 2, <Parent>, 2, False, +1.00, 1, 1, 0, 
-      AutoLayout      =   ImageView1, 3, TopLayoutGuide, 4, False, +1.00, 1, 1, *kStdControlGapV, 
-      AutoLayout      =   ImageView1, 4, BottomLayoutGuide, 3, False, +1.00, 1, 1, 0, 
       AutoLayout      =   ImageView1, 1, <Parent>, 1, False, +1.00, 1, 1, 0, 
+      AutoLayout      =   ImageView1, 3, TopLayoutGuide, 4, False, +1.00, 1, 1, *kStdControlGapV, 
+      AutoLayout      =   ImageView1, 2, <Parent>, 2, False, +1.00, 1, 1, 0, 
+      AutoLayout      =   ImageView1, 4, BottomLayoutGuide, 3, False, +1.00, 1, 1, 0, 
       FrameInterval   =   0
       Height          =   407.0
       IgnoresSiblingOrder=   False
@@ -56,7 +56,7 @@ End
 	#tag Event
 		Sub ToolbarPressed(button As iOSToolButton)
 		  select case button.Caption
-		  case "Bear" 
+		  case "Bear"
 		    WalkingBear
 		  case "Spaceshooter"
 		    Spaceshooter
@@ -69,7 +69,7 @@ End
 
 	#tag Method, Flags = &h21
 		Private Sub AddBackgroundStars()
-		  // 
+		  //
 		  // dim bgsprite as new iOSLibSKSpriteNode (new iOSLibSKTexture(new iOSLibImage(bg_parallax_stars)))
 		  // bgsprite.AnchorPoint = NSPoint (0, 0)
 		  // bgsprite.Position = nspoint (0, ImageView1.Height)
@@ -94,7 +94,7 @@ End
 		    objectb.Node.RunAction (iOSLibSKAction.Sequence (iOSLibSKAction.FadeOut (0.3), iOSLibSKAction.RemoveFromParent))
 		    objecta.Node.RunAction (iOSLibSKAction.Sequence (iOSLibSKAction.FadeOut (0.3), iOSLibSKAction.RemoveFromParent))
 		  elseif (Objecta.CategoryBitMask and EnemyCategory) = EnemyCategory then // We hit an enemy too
-		    if ( objectb.CategoryBitMask and BulletCategory) = BulletCategory then 
+		    if ( objectb.CategoryBitMask and BulletCategory) = BulletCategory then
 		      objecta.Node.RunAction (iOSLibSKAction.Sequence (iOSLibSKAction.FadeOut (0.3), iOSLibSKAction.RemoveFromParent))
 		    end if
 		  end if
@@ -166,7 +166,7 @@ End
 		  
 		  
 		  FighterNormal = new iOSLibSKSpriteNode (FighterNormalTexture) // now create a Sprite with the normal image
-		  FighterNormal.setScale  ImageView1.view.ContentScaleFactor // scale it so it matches the display resolution
+		  // FighterNormal.setScale  1/ImageView1.view.ContentScaleFactor // scale it so it matches the display resolution
 		  
 		  FighterNormal.Position = NSPoint (ImageView1.Width/2, FighterNormal.Frame.Size_.height * 2) // and place it in the middle just a bit above the bottom
 		  
@@ -308,7 +308,7 @@ End
 		  dim distance as double = sqrt (movedifference.x * movedifference.x + movedifference.y * movedifference.y)
 		  dim duration as double = distance / FighterVelocity
 		  // FighterNormal.Texture = if (movedifference.x <0, FighterLeftTexture, FighterRightTexture)
-		  // 
+		  //
 		  dim textureaction as iOSLibSKAction =  if (movedifference.x <0, TextureLeftAction, if (movedifference.x > 0, TextureRightaction, TextureNormalaction))
 		  dim moveaction as iOSLibSKAction = iOSLibSKAction.MoveTo (location, duration)
 		  dim block as new iOSBlock (AddressOf FighterMoveEnded)
@@ -402,7 +402,7 @@ End
 		    
 		    SpaceShooterScene.ScaleMode = iOSLibSKScene.SKSceneScaleMode.FillProportional
 		    
-		    dim BackGroundnode as new iOSLibSKNode 
+		    dim BackGroundnode as new iOSLibSKNode
 		    BackGroundnode.Name = "SpaceLayer"
 		    SpaceShooterScene.AddChild  BackGroundnode
 		    
@@ -412,7 +412,7 @@ End
 		    
 		    
 		  end if
-		   starfall   = iOSLibSKAction.MoveToY (-10, BackgroundSpeedScrollDuration)
+		  starfall   = iOSLibSKAction.MoveToY (-10, BackgroundSpeedScrollDuration)
 		  dim fightershotmove as iOSLibSKAction = iOSLibSKAction.MoveToY (ImageView1.Height + 50, 1)
 		  dim soundaction as iOSLibSKAction = iOSLibSKAction.PlaySound ("Standardshoot.mp3", false)
 		  FighterShot = iOSLibSKAction.Sequence (soundaction, FighterShotmove)
@@ -441,7 +441,7 @@ End
 		    
 		    dim bear as new iOSLibSKSpriteNode ("bear1") // create a spritenode with the first bear image
 		    bear.Position = NSPoint (ImageView1.Width/2, ImageView1.Height / 2) // position it in the center
-		    Bear.setScale  1/ImageView1.view.ContentScaleFactor // something is not correct here with the sizing of the images; this handles it.
+		    Bear.setScale  1/ImageView1.view.ContentScaleFactor // correct the scale factor
 		    bear.Name = "bear" // give the sprite a name so we can find it later
 		    
 		    WalkScene.ScaleMode = iOSLibSKScene.SKSceneScaleMode.FillProportional // make sure noting gets resized unproportionally
@@ -533,7 +533,7 @@ End
 	#tag EndProperty
 
 
-	#tag Constant, Name = BackgroundCategory , Type = Double, Dynamic = False, Default = \"32", Scope = Private
+	#tag Constant, Name = BackgroundCategory, Type = Double, Dynamic = False, Default = \"32", Scope = Private
 	#tag EndConstant
 
 	#tag Constant, Name = BorderCategory, Type = Double, Dynamic = False, Default = \"4", Scope = Private
@@ -570,16 +570,16 @@ End
 	#tag Event
 		Sub TouchesEnded(Touchset as ioslibset, anEvent as iOSLibEvent)
 		  select case me.scene.name
-		  case "BearAnimation" 
+		  case "BearAnimation"
 		    ProcessBearTouch (Touchset, anEvent)
 		  case "SpaceShooter"
-		    ProcessSpaceShooterTouch (Touchset, anEvent) 
+		    ProcessSpaceShooterTouch (Touchset, anEvent)
 		  end select
 		End Sub
 	#tag EndEvent
 	#tag Event
 		Sub LayoutSubviews()
-		  if WalkScene = nil then Spaceshooter
+		  if WalkScene = nil then ShootWorld
 		End Sub
 	#tag EndEvent
 	#tag Event
