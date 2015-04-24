@@ -4,7 +4,7 @@ Inherits iOSUserControl
 	#tag Event
 		Function CreateView() As UInteger
 		  dim frame as new Rect (0,0,100,100)
-		  mid = iOSLibObject.AutoRelease (iOSLibResponder.DoInitWithFrame (ioslibobject.alloc(ClassPtr), frame.tonsrect))
+		  mid =  (iOSLibResponder.DoInitWithFrame (ioslibobject.alloc(ClassPtr), frame.tonsrect))
 		  dim myGRadientLayer as new iOSLibCAGradientLayer
 		  myGRadientLayer.bounds = frame.tonsrect
 		  myGRadientLayer.MasksToBounds = true
@@ -14,6 +14,9 @@ Inherits iOSUserControl
 		  mylayer.AddSubLayer myGRadientLayer
 		  mGradientLayer = myGRadientLayer
 		  Return UInteger(mid)
+		  
+		  
+		  
 		End Function
 	#tag EndEvent
 
@@ -51,7 +54,7 @@ Inherits iOSUserControl
 			    methods.Append new TargetClassMethodHelper("layoutSubviews", AddressOf impl_layoutSubviews, "v@:")
 			    // methods.Append new TargetClassMethodHelper("layerClass", AddressOf impl_layerClassGradient, "#@:",true, true)
 			    
-			    mClassPtr = BuildTargetClass("UIImageView","iOSLibGradientView",methods)
+			    mClassPtr = BuildTargetClass("iOSLibUIView","iOSLibGradientView",methods)
 			  end if
 			  return mClassPtr
 			End Get

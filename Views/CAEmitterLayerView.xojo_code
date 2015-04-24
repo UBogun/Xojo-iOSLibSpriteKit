@@ -10,10 +10,10 @@ Begin iosView CAEmitterLayerView
    Begin ioslibemitterview testview
       AccessibilityHint=   ""
       AccessibilityLabel=   ""
-      AutoLayout      =   testview, 2, <Parent>, 2, False, +1.00, 1, 1, 0, 
-      AutoLayout      =   testview, 1, <Parent>, 1, False, +1.00, 1, 1, 0, 
-      AutoLayout      =   testview, 3, TopLayoutGuide, 4, False, +1.00, 1, 1, 0, 
       AutoLayout      =   testview, 4, <Parent>, 4, False, +1.00, 2, 1, 0, 
+      AutoLayout      =   testview, 1, <Parent>, 1, False, +1.00, 1, 1, 0, 
+      AutoLayout      =   testview, 2, <Parent>, 2, False, +1.00, 1, 1, 0, 
+      AutoLayout      =   testview, 3, TopLayoutGuide, 4, False, +1.00, 1, 1, 0, 
       Height          =   415.0
       Left            =   0
       LockedInPosition=   False
@@ -85,15 +85,6 @@ End
 		  // mylayer.LevelsOfDetail = 1
 		  // testview.iOSLibView.Layer.AddSubLayer mylayer
 		  // mylayer.Seed = 1394639
-		  dim t1 as date = date.now
-		  dim mypic as iOSImage = iosLibLogo
-		  dim t2 as DateInterval = date.Now - t1
-		  dim r1 as double = t2.NanoSeconds
-		  dim t3 as date = date.now
-		  dim myimage as new iOSLibImage (iosliblogo)
-		  dim t4 as DateInterval = date.now - t3
-		  dim r2 as double = t4.NanoSeconds
-		  break
 		  // testview.iOSLibView.layer.Contents =new ioslibobject ( myimage.toCGImage)
 		  
 		  
@@ -101,6 +92,7 @@ End
 		  dim mylib as new iOSLibMutableArray
 		  mylib.Addobject myEmitterCell
 		  testview.EmitterLayer.EmitterCells = mylib
+		  dim myimage as new iOSLibImage (iosliblogo)
 		  
 		  myEmitterCell.Contents =new ioslibobject ( myimage.toCGImage)
 		  myEmitterCell.Name = "iOSLibLogoCell"

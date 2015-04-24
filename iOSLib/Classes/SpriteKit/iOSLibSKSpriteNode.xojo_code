@@ -108,7 +108,7 @@ Inherits iOSLibSKNode
 		Sub Constructor(texture as iOSLibSKTexture, size as NSSize)
 		  #if Target64Bit
 		    Declare function spriteNodeWithTextureSize lib SpriteKit selector "spriteNodeWithTexture:size:" (id as ptr, texture as Ptr, size as NSSize) as ptr
-		    Super.Constructor (spriteNodeWithTextureSize (classptr, texture.id, size)
+		    Super.Constructor (spriteNodeWithTextureSize (classptr, texture.id, size))
 		  #elseif Target32Bit
 		    Declare function spriteNodeWithTextureSize lib SpriteKit selector "spriteNodeWithTexture:size:" (id as ptr, texture as Ptr,  size as NSSize32Bit) as ptr
 		    Super.Constructor (spriteNodeWithTextureSize (classptr, texture.id, size.toNSSize32))
@@ -314,6 +314,16 @@ Inherits iOSLibSKNode
 	#tag ViewBehavior
 		#tag ViewProperty
 			Name="Alpha"
+			Group="Behavior"
+			Type="Double"
+		#tag EndViewProperty
+		#tag ViewProperty
+			Name="BlendMode"
+			Group="Behavior"
+			Type="SKBlendMode"
+		#tag EndViewProperty
+		#tag ViewProperty
+			Name="ColorBlendFactor"
 			Group="Behavior"
 			Type="Double"
 		#tag EndViewProperty

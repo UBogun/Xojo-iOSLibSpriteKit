@@ -46,6 +46,7 @@ Inherits iOSUserControl
 	#tag ComputedProperty, Flags = &h1
 		#tag Getter
 			Get
+			  static mClassPtr as ptr
 			  if mClassPtr = nil then
 			    dim methods() as TargetClassMethodHelper
 			    methods.Append new TargetClassMethodHelper("layoutSubviews", AddressOf impl_layoutSubviews, "v@:")
@@ -79,10 +80,6 @@ Inherits iOSUserControl
 		#tag EndGetter
 		id As Ptr
 	#tag EndComputedProperty
-
-	#tag Property, Flags = &h21
-		Private Shared mClassPtr As Ptr
-	#tag EndProperty
 
 	#tag Property, Flags = &h21
 		Private mEmitterLayer As iOSLibCAEmitterLayer

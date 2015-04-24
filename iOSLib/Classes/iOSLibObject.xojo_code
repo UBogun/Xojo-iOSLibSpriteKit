@@ -26,7 +26,7 @@ Implements iOSLibGeneralObject
 	#tag Method, Flags = &h0
 		Sub Constructor()
 		  mid = CreateInstance (ClassPtr)
-		  mHasOwnership = true
+		  RetainClassObject
 		End Sub
 	#tag EndMethod
 
@@ -76,10 +76,10 @@ Implements iOSLibGeneralObject
 		Private Sub Destructor()
 		  
 		  if mHasOwnership then
-		    // system.DebugLog "Releasing "+DebugDescription+" AR: "+RetainCount.totext
+		    system.DebugLog "Releasing "+DebugDescription+" AR: "+RetainCount.totext
 		    autoRelease
 		  else
-		    // system.DebugLog "Losing Handle on "+DebugDescription+" AR: "+RetainCount.totext
+		    system.DebugLog "Losing Handle on "+DebugDescription+" AR: "+RetainCount.totext
 		  end if
 		End Sub
 	#tag EndMethod

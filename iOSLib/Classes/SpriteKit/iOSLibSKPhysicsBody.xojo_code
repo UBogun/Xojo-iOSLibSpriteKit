@@ -103,7 +103,7 @@ Inherits iosLibObject
 		Sub Constructor(Radius as Double, Center as NSPoint)
 		  #if Target64Bit
 		    declare Function bodyWithCircleOfRadiusCenter lib SpriteKit selector "bodyWithCircleOfRadius:center:" (id as ptr,  asize as double, center as NSPoint) as ptr
-		    super.Constructor (bodyWithCircleOfRadius (ClassPtr, radius, center))
+		    super.Constructor (bodyWithCircleOfRadiusCenter (ClassPtr, radius, center))
 		  #elseif Target32Bit
 		    declare Function bodyWithCircleOfRadiusCenter lib SpriteKit selector "bodyWithCircleOfRadius:center:" (id as ptr,  asize as single, center as NSPoint32Bit) as ptr
 		    super.Constructor (bodyWithCircleOfRadiusCenter (ClassPtr, radius, center.toNSPoint32))

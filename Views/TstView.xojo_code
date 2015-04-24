@@ -12,10 +12,10 @@ Begin iosView TstView
       AccessibilityLabel=   ""
       AllowsTransparency=   False
       Asynchronous    =   False
-      AutoLayout      =   ImageView1, 1, <Parent>, 1, False, +1.00, 1, 1, 0, 
-      AutoLayout      =   ImageView1, 3, TopLayoutGuide, 4, False, +1.00, 1, 1, *kStdControlGapV, 
-      AutoLayout      =   ImageView1, 2, <Parent>, 2, False, +1.00, 1, 1, 0, 
       AutoLayout      =   ImageView1, 4, BottomLayoutGuide, 3, False, +1.00, 1, 1, 0, 
+      AutoLayout      =   ImageView1, 3, TopLayoutGuide, 4, False, +1.00, 1, 1, *kStdControlGapV, 
+      AutoLayout      =   ImageView1, 1, <Parent>, 1, False, +1.00, 1, 1, 0, 
+      AutoLayout      =   ImageView1, 2, <Parent>, 2, False, +1.00, 1, 1, 0, 
       FrameInterval   =   0
       Height          =   407.0
       IgnoresSiblingOrder=   False
@@ -307,7 +307,6 @@ End
 		  dim movedifference as nspoint = location.Operator_Subtract( FighterNormal.Position)
 		  dim distance as double = sqrt (movedifference.x * movedifference.x + movedifference.y * movedifference.y)
 		  dim duration as double = distance / FighterVelocity
-		  // FighterNormal.Texture = if (movedifference.x <0, FighterLeftTexture, FighterRightTexture)
 		  //
 		  dim textureaction as iOSLibSKAction =  if (movedifference.x <0, TextureLeftAction, if (movedifference.x > 0, TextureRightaction, TextureNormalaction))
 		  dim moveaction as iOSLibSKAction = iOSLibSKAction.MoveTo (location, duration)
@@ -316,8 +315,7 @@ End
 		  dim moveactionWithdone as iOSLibSKAction = iOSLibSKAction.Sequence (textureaction, moveaction, doneaction)
 		  FighterNormal.RunActionWithKey (moveactionWithdone, "FighterMoving")
 		  
-		  
-		  if touch.TapCount > 1 then FighterShoot
+		  if touch.TapCount > 1 then FighterShoot 
 		End Sub
 	#tag EndMethod
 
@@ -436,7 +434,7 @@ End
 	#tag Method, Flags = &h21
 		Private Sub WalkingBear()
 		  if WalkScene = nil then // do we need to create a new scene?
-		    WalkScene = new iOSLibSKSceneWithInterface (ImageView1) // If yes, do you with the size of the View
+		    WalkScene = new iOSLibSKSceneWithInterface (ImageView1) // If yes, do so with the size of the View
 		    WalkScene.name = "BearAnimation" // and give it a name
 		    
 		    dim bear as new iOSLibSKSpriteNode ("bear1") // create a spritenode with the first bear image
@@ -444,10 +442,8 @@ End
 		    Bear.setScale  1/ImageView1.view.ContentScaleFactor // correct the scale factor
 		    bear.Name = "bear" // give the sprite a name so we can find it later
 		    
-		    WalkScene.ScaleMode = iOSLibSKScene.SKSceneScaleMode.FillProportional // make sure noting gets resized unproportionally
+		    WalkScene.ScaleMode = iOSLibSKScene.SKSceneScaleMode.FillProportional // make sure nothing gets resized unproportionally
 		    WalkScene.AddChild bear // and now let the bear appear on stage!
-		    
-		    
 		  end if
 		  
 		  imageview1.PresentScene WalkScene // now that we know it exists, show the scene
