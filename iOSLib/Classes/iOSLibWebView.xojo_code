@@ -7,14 +7,6 @@ Inherits iOSLibView
 		End Sub
 	#tag EndMethod
 
-	#tag Method, Flags = &h21
-		Private Sub Destructor()
-		  // if mhasownership then
-		  // if not Delegate_.IsNIL then Delegate_ = nil
-		  // end if
-		End Sub
-	#tag EndMethod
-
 	#tag Method, Flags = &h0
 		Sub GoBack()
 		  Declare Sub goBack lib UIKit selector "goBack" (id as ptr)

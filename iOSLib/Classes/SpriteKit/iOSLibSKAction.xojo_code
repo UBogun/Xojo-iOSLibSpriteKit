@@ -5,8 +5,7 @@ Inherits iOSLibObject
 		 Shared Function AnimateWithTextures(textures as ioslibarray, timeperframe as Double) As iOSLibSKAction
 		  Declare function animateWithTextures lib SpriteKit selector "animateWithTextures:timePerFrame:" (id as ptr, textures as ptr, duration as double) as ptr
 		  dim result as  new iOSLibSKAction (animateWithTextures (classptr, textures.id, timeperframe))
-		  result.Retain
-		  result.mhasownership = true
+		  result.RetainClassObject
 		  return result
 		End Function
 	#tag EndMethod

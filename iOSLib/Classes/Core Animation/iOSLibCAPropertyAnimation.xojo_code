@@ -18,6 +18,7 @@ Inherits iOSLIbCAAnimation
 	#tag Method, Flags = &h1000
 		Sub Constructor(keyPath as CFStringRef)
 		  Super.Constructor (animationWithKeyPath (ClassPtr, keyPath))
+		  RetainClassObject
 		  
 		End Sub
 	#tag EndMethod
@@ -93,11 +94,6 @@ Inherits iOSLIbCAAnimation
 			Name="Additive"
 			Group="Behavior"
 			Type="Boolean"
-		#tag EndViewProperty
-		#tag ViewProperty
-			Name="Alpha"
-			Group="Behavior"
-			Type="Double"
 		#tag EndViewProperty
 		#tag ViewProperty
 			Name="Autoreverses"

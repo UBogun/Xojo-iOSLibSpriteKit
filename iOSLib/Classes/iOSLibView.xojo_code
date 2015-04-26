@@ -345,7 +345,7 @@ Inherits iOSLibResponder
 
 	#tag Method, Flags = &h0
 		Attributes( hidden )  Sub informonlayoutSubviews()
-		  RaiseEvent layoutSubviews 
+		  RaiseEvent layoutSubviews
 		End Sub
 	#tag EndMethod
 
@@ -771,6 +771,32 @@ Inherits iOSLibResponder
 		Event WillRemoveSubview(view as iOSLibView)
 	#tag EndHook
 
+
+	#tag ComputedProperty, Flags = &h0
+		#tag Getter
+			Get
+			  #if Target64bit
+			    declare function alphaValue lib UIKit selector "alpha" (id as ptr) as Double
+			  #elseif target32bit
+			    declare function alphaValue lib UIKit selector "alpha" (id as ptr) as Single
+			  #endif
+			  return alphaValue (id)
+			  
+			End Get
+		#tag EndGetter
+		#tag Setter
+			Set
+			  #if Target64bit
+			    declare sub setAlphaValue lib UIKit selector "setAlpha:" (id as ptr, value as double)
+			  #elseif target32bit
+			    declare sub setAlphaValue lib UIKit selector "setAlpha:" (id as ptr, value as Single)
+			  #endif
+			  setAlphaValue id, value
+			  
+			End Set
+		#tag EndSetter
+		Alpha As Double
+	#tag EndComputedProperty
 
 	#tag ComputedProperty, Flags = &h0
 		#tag Getter

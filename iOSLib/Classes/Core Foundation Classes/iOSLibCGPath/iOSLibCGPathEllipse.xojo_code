@@ -1,15 +1,27 @@
 #tag Class
-Protected Class iOSLibCFString
-Inherits iOSLibCFObject
-	#tag ExternalMethod, Flags = &h1
-		Protected Declare Function CFStringCreateCopy Lib CoreFoundation (Allocator as Ptr, aString as CFStringRef) As Ptr
-	#tag EndExternalMethod
+Protected Class iOSLibCGPathEllipse
+Inherits iOSLibCGPath
+	#tag Method, Flags = &h1
+		Protected Function CGPathCreateWithEllipseInRect(ARect as NSRect) As Ptr
+		  #if Target64Bit
+		    Declare Function CGPathCreateWithEllipseInRect lib CoreGraphics (arect as NSRect, aTransform as ptr) as ptr
+		    return CGPathCreateWithEllipseInRect (ARect, NIL)
+		  #elseif Target32Bit
+		    Declare Function CGPathCreateWithEllipseInRect lib CoreGraphics (arect as NSRect32Bit, aTransform as Ptr) as ptr
+		    return CGPathCreateWithEllipseInRect (ARect.toNSRect32,NIL)
+		  #endif
+		  
+		End Function
+	#tag EndMethod
 
 	#tag Method, Flags = &h1000
-		Sub Constructor(aText as CFStringRef)
+		Sub Constructor(ARect as NSRect)
 		  // Calling the overridden superclass constructor.
-		  Super.Constructor (CFStringCreateCopy (Nil, atext), true)
-		  Mhasownership = true
+		  // Note that this may need modifications if there are multiple constructor choices.
+		  // Possible constructor calls:
+		  // Constructor() -- From iOSLibCGPath
+		  // Constructor(aTypeRef as Ptr) -- From iOSLibCFObject
+		  Super.Constructor (CGPathCreateWithEllipseInRect(ARect), true)
 		  
 		End Sub
 	#tag EndMethod
@@ -34,7 +46,17 @@ Inherits iOSLibCFObject
 			Type="Integer"
 		#tag EndViewProperty
 		#tag ViewProperty
+			Name="isEmpty"
+			Group="Behavior"
+			Type="Boolean"
+		#tag EndViewProperty
+		#tag ViewProperty
 			Name="isNIL"
+			Group="Behavior"
+			Type="Boolean"
+		#tag EndViewProperty
+		#tag ViewProperty
+			Name="isRect"
 			Group="Behavior"
 			Type="Boolean"
 		#tag EndViewProperty

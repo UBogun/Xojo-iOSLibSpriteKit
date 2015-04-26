@@ -12,10 +12,10 @@ Begin iosView TstView
       AccessibilityLabel=   ""
       AllowsTransparency=   False
       Asynchronous    =   False
-      AutoLayout      =   ImageView1, 4, BottomLayoutGuide, 3, False, +1.00, 1, 1, 0, 
-      AutoLayout      =   ImageView1, 3, TopLayoutGuide, 4, False, +1.00, 1, 1, *kStdControlGapV, 
       AutoLayout      =   ImageView1, 1, <Parent>, 1, False, +1.00, 1, 1, 0, 
+      AutoLayout      =   ImageView1, 3, TopLayoutGuide, 4, False, +1.00, 1, 1, *kStdControlGapV, 
       AutoLayout      =   ImageView1, 2, <Parent>, 2, False, +1.00, 1, 1, 0, 
+      AutoLayout      =   ImageView1, 4, BottomLayoutGuide, 3, False, +1.00, 1, 1, 0, 
       FrameInterval   =   0
       Height          =   407.0
       IgnoresSiblingOrder=   False
@@ -315,7 +315,7 @@ End
 		  dim moveactionWithdone as iOSLibSKAction = iOSLibSKAction.Sequence (textureaction, moveaction, doneaction)
 		  FighterNormal.RunActionWithKey (moveactionWithdone, "FighterMoving")
 		  
-		  if touch.TapCount > 1 then FighterShoot 
+		  if touch.TapCount > 1 then FighterShoot
 		End Sub
 	#tag EndMethod
 
@@ -587,6 +587,16 @@ End
 		Sub DidBeginContact(Contact as iOSLibSKPhysicsContact)
 		  if ImageView1.Scene.Name = "SpaceShooter" then
 		    analyzeCollision(contact)
+		  end if
+		End Sub
+	#tag EndEvent
+	#tag Event
+		Sub WillMoveToWindow(window as ptr)
+		  if window = nil then
+		    me.Scene.RemoveAllActions
+		    me.Scene.RemoveAllChildren
+		    dim emptyscene as new iOSLibSKSceneWithInterface (me)
+		    me.PresentScene  emptyscene
 		  end if
 		End Sub
 	#tag EndEvent

@@ -3,8 +3,10 @@ Protected Class iOSLibHTMLViewer
 Inherits iOSUserControl
 	#tag Event
 		Sub Close()
-		  Viewer.Delegate_ = nil
-		  system.debuglog "NULled Delegate"
+		  if not Viewer.IsNIL then
+		    Viewer.Delegate_ = nil
+		    system.debuglog "Nulled HTMLVIewDelegate"
+		  end if
 		End Sub
 	#tag EndEvent
 
@@ -14,11 +16,16 @@ Inherits iOSUserControl
 		  
 		  mid = iOSLibResponder.DoInitWithFrame (ioslibobject.alloc(ClassPtr), frame.tonsrect)
 		  Viewer.myiOSLibHTMLViewer = WeakRef.create (self)
+		  viewer.mhasownership = true
 		  
 		  dim mydelegate as new iOSLibWebViewDelegate (self)
 		  Viewer.Delegate_ = mydelegate
 		  
 		  Return UInteger(mid)
+		  
+		  
+		  
+		  
 		End Function
 	#tag EndEvent
 
@@ -37,7 +44,7 @@ Inherits iOSUserControl
 
 	#tag Method, Flags = &h21
 		Private Sub Destructor()
-		  
+		  break
 		End Sub
 	#tag EndMethod
 
@@ -63,10 +70,10 @@ Inherits iOSUserControl
 	#tag EndMethod
 
 	#tag Method, Flags = &h0
-		Attributes( hidden )  Sub InformOnShouldStart(Request as Ptr, NavigationType as iOSLibWebView.UIWebViewNavigationType)
-		  RaiseEvent ShouldStart (Request, navigationtype)
+		Attributes( hidden )  Function InformOnShouldStart(Request as Ptr, NavigationType as iOSLibWebView.UIWebViewNavigationType) As boolean
+		  return RaiseEvent ShouldStart (Request, navigationtype)
 		  
-		End Sub
+		End Function
 	#tag EndMethod
 
 
@@ -83,7 +90,7 @@ Inherits iOSUserControl
 	#tag EndHook
 
 	#tag Hook, Flags = &h0
-		Event ShouldStart(Request as ptr, navigationtype as iOSLibWebView.UIWebViewNavigationType)
+		Event ShouldStart(Request as ptr, navigationtype as iOSLibWebView.UIWebViewNavigationType) As boolean
 	#tag EndHook
 
 

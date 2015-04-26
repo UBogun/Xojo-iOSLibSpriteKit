@@ -1,55 +1,31 @@
 #tag Class
-Protected Class iOSLibCGContext
+Protected Class iOSLibCGImage
 Inherits iOSLibCFObject
 	#tag ExternalMethod, Flags = &h1
-		Protected Declare Sub CGContextRelease Lib CoreGraphics (CFTypeRef as Ptr)
+		Protected Declare Sub CGImageRelease Lib CoreGraphics (CFTypeRef as Ptr)
 	#tag EndExternalMethod
 
 	#tag ExternalMethod, Flags = &h1
-		Protected Declare Function CGContextRetain Lib CoreGraphics (CFTypeRef as Ptr) As Ptr
+		Protected Declare Function CGImageRetain Lib CoreGraphics (CFTypeRef as Ptr) As Ptr
 	#tag EndExternalMethod
+
+	#tag Method, Flags = &h0
+		 Shared Function MakeFromCFTypeRef(aCFTypeRef as ptr) As iOSLibCgimage
+		  return if (aCFTypeRef = nil , NIL,  new iOSLibCGImage (aCFTypeRef))
+		End Function
+	#tag EndMethod
 
 	#tag Method, Flags = &h1
 		Protected Sub Release()
-		  CGContextRelease (mCFTypeRef)
+		  CGImageRelease (mCFTypeRef)
 		End Sub
 	#tag EndMethod
 
 	#tag Method, Flags = &h1
 		Protected Sub Retain()
-		  mCFTypeRef = CGContextRetain (mCFTypeRef)
+		  mCFTypeRef = CGImageRetain (mCFTypeRef)
 		End Sub
 	#tag EndMethod
-
-	#tag Method, Flags = &h0
-		 Shared Sub UIGraphicsBeginImageContext(asize as NSSize)
-		  #if Target64Bit
-		    declare sub UIGraphicsBeginImageContext lib UIKit (asize as NSSize)
-		    UIGraphicsBeginImageContext (asize)
-		  #elseif Target64Bit
-		    declare sub UIGraphicsBeginImageContext lib UIKit (asize as NSSize32Bit)
-		    UIGraphicsBeginImageContext (asize.toNSSize32)
-		  #endif
-		End Sub
-	#tag EndMethod
-
-	#tag ExternalMethod, Flags = &h0
-		Declare Sub UIGraphicsEndImageContext Lib UIKit ()
-	#tag EndExternalMethod
-
-	#tag ExternalMethod, Flags = &h0
-		Declare Function UIGraphicsGetCurrentContext Lib UIKit () As Ptr
-	#tag EndExternalMethod
-
-
-	#tag ComputedProperty, Flags = &h0
-		#tag Getter
-			Get
-			  return new iOSLibCGContext (UIGraphicsGetCurrentContext)
-			End Get
-		#tag EndGetter
-		Shared CurrentContext As iOSLibCGContext
-	#tag EndComputedProperty
 
 
 	#tag ViewBehavior

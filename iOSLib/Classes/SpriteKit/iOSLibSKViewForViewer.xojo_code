@@ -28,6 +28,8 @@ Implements iOSLibEventForwarder
 		    if RetainDict.HasKey (id) then RetainDict.Remove (id)
 		    system.debuglog "iOSLibSKViewForViewer Destructor run"
 		  end if
+		  dim scene as new iOSLibSKScene (me.Frame.size_)
+		  me.PresentScene scene
 		End Sub
 	#tag EndMethod
 
@@ -176,7 +178,7 @@ Implements iOSLibEventForwarder
 	#tag Method, Flags = &h0
 		Attributes( hidden )  Sub informonDidAddSubview(view as ptr)
 		  dim myarray as new iOSLibMutableArray(2)
-		  myarray.Addobject new iOSLibCFString (DidAddSubview)
+		  myarray.AddText DidAddSubview
 		  myarray.Addobject view
 		  NotifyObservers (myarray)
 		End Sub
@@ -185,7 +187,7 @@ Implements iOSLibEventForwarder
 	#tag Method, Flags = &h0
 		Attributes( hidden )  Sub informonDidMoveToSuperView()
 		  dim myarray as new iOSLibMutableArray(1)
-		  myarray.Addobject new iOSLibCFString (DidMoveToSuperview)
+		  myarray.AddText  DidMoveToSuperview
 		  NotifyObservers (myarray)
 		End Sub
 	#tag EndMethod
@@ -193,7 +195,7 @@ Implements iOSLibEventForwarder
 	#tag Method, Flags = &h0
 		Attributes( hidden )  Sub informonDidMoveToWindow()
 		  dim myarray as new iOSLibMutableArray(1)
-		  myarray.Addobject new iOSLibCFString (DidMoveToWindow)
+		  myarray.AddText  DidMoveToWindow
 		  NotifyObservers (myarray)
 		End Sub
 	#tag EndMethod
@@ -201,7 +203,7 @@ Implements iOSLibEventForwarder
 	#tag Method, Flags = &h0
 		Attributes( hidden )  Sub informonDrawRect(Rect as NSRect)
 		  dim myarray as new iOSLibMutableArray(2)
-		  myarray.Addobject new iOSLibCFString (DrawRect)
+		  myarray.AddText  DrawRect
 		  myarray.Addobject new ioslibvalue( rect)
 		  NotifyObservers (myarray)
 		End Sub
@@ -210,7 +212,7 @@ Implements iOSLibEventForwarder
 	#tag Method, Flags = &h0
 		Attributes( hidden )  Sub informonLayoutSubviews()
 		  dim myarray as new iOSLibMutableArray(1)
-		  myarray.Addobject new iOSLibCFString (LayoutSubviews)
+		  myarray.AddText  LayoutSubviews
 		  NotifyObservers (myarray)
 		End Sub
 	#tag EndMethod
@@ -218,7 +220,7 @@ Implements iOSLibEventForwarder
 	#tag Method, Flags = &h0
 		Attributes( hidden )  Sub informonMotionBeganWithEvent(type as integer, anEvent as ptr)
 		  dim myarray as new iOSLibMutableArray(3)
-		  myarray.Addobject new iOSLibCFString (motionBegan)
+		  myarray.AddText  motionBegan
 		  myarray.Addobject new ioslibnumber (type)
 		  myarray.Addobject ioslibevent.MakefromPtr (anevent)
 		  NotifyObservers (myarray)
@@ -228,7 +230,7 @@ Implements iOSLibEventForwarder
 	#tag Method, Flags = &h0
 		Attributes( hidden )  Sub informonTouchesBeganWithEvent(Touchset as ptr, anEvent as ptr)
 		  dim myarray as new iOSLibMutableArray(3)
-		  myarray.Addobject new iOSLibCFString (TouchesBegan)
+		  myarray.AddText  TouchesBegan
 		  myarray.Addobject ioslibset.MakefromPtr (touchset)
 		  myarray.Addobject ioslibevent.MakefromPtr (anevent)
 		  NotifyObservers (myarray)
@@ -238,7 +240,7 @@ Implements iOSLibEventForwarder
 	#tag Method, Flags = &h0
 		Attributes( hidden )  Sub informonTouchesCancelledWithEvent(Touchset as ptr, anEvent as ptr)
 		  dim myarray as new iOSLibMutableArray(3)
-		  myarray.Addobject new iOSLibCFString (TouchesCancelled)
+		  myarray.AddText  TouchesCancelled
 		  myarray.Addobject ioslibset.MakefromPtr (touchset)
 		  myarray.Addobject ioslibevent.MakefromPtr (anevent)
 		  NotifyObservers (myarray)
@@ -248,7 +250,7 @@ Implements iOSLibEventForwarder
 	#tag Method, Flags = &h0
 		Attributes( hidden )  Sub informonTouchesEndedWithEvent(Touchset as ptr, anEvent as ptr)
 		  dim myarray as new iOSLibMutableArray(3)
-		  myarray.Addobject new iOSLibCFString (TouchesEnded)
+		  myarray.AddText TouchesEnded
 		  myarray.Addobject ioslibset.MakefromPtr (touchset)
 		  myarray.Addobject ioslibevent.MakefromPtr (anevent)
 		  NotifyObservers (myarray)
@@ -258,7 +260,7 @@ Implements iOSLibEventForwarder
 	#tag Method, Flags = &h0
 		Attributes( hidden )  Sub informonTouchesMovedWithEvent(Touchset as ptr, anEvent as ptr)
 		  dim myarray as new iOSLibMutableArray(3)
-		  myarray.Addobject new iOSLibCFString (TouchesMoved)
+		  myarray.AddText  TouchesMoved
 		  myarray.Addobject ioslibset.MakefromPtr (touchset)
 		  myarray.Addobject ioslibevent.MakefromPtr (anevent)
 		  NotifyObservers (myarray)
@@ -268,7 +270,7 @@ Implements iOSLibEventForwarder
 	#tag Method, Flags = &h0
 		Attributes( hidden )  Sub informonwillMoveToSuperView(view as ptr)
 		  dim myarray as new iOSLibMutableArray(2)
-		  myarray.Addobject new iOSLibCFString (WillMoveToSuperview)
+		  myarray.AddText  WillMoveToSuperview
 		  if view <> Nil then myarray.Addobject view
 		  NotifyObservers (myarray)
 		End Sub
@@ -277,7 +279,7 @@ Implements iOSLibEventForwarder
 	#tag Method, Flags = &h0
 		Attributes( hidden )  Sub informonwillMoveToWindow(window as Ptr)
 		  dim myarray as new iOSLibMutableArray(2)
-		  myarray.Addobject new iOSLibCFString (WillMoveToWindow)
+		  myarray.AddText  WillMoveToWindow
 		  if window <> nil then myarray.Addobject window
 		  NotifyObservers (myarray)
 		End Sub
@@ -286,7 +288,7 @@ Implements iOSLibEventForwarder
 	#tag Method, Flags = &h0
 		Attributes( hidden )  Sub informonWillRemoveSubview(view as ptr)
 		  dim myarray as new iOSLibMutableArray(2)
-		  myarray.Addobject new iOSLibCFString (WillRemoveSubview)
+		  myarray.AddText  WillRemoveSubview
 		  myarray.Addobject view
 		  NotifyObservers (myarray)
 		End Sub
@@ -299,7 +301,9 @@ Implements iOSLibEventForwarder
 		  if Receivers.HasKey(id) then
 		    dim wR as WeakRef = Receivers.value(id)
 		    dim observer as iOSLibEventReceiver = iOSLibEventReceiver( wr.Value)
-		    if observer <> nil then observer.ReceivedEvent (EventProperties)
+		    if observer <> nil then
+		      observer.ReceivedEvent (EventProperties)
+		    end if
 		  end if
 		  
 		End Sub

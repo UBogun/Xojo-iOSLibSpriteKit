@@ -10,10 +10,10 @@ Begin iosView CAEmitterLayerView
    Begin ioslibemitterview testview
       AccessibilityHint=   ""
       AccessibilityLabel=   ""
-      AutoLayout      =   testview, 4, <Parent>, 4, False, +1.00, 2, 1, 0, 
-      AutoLayout      =   testview, 1, <Parent>, 1, False, +1.00, 1, 1, 0, 
-      AutoLayout      =   testview, 2, <Parent>, 2, False, +1.00, 1, 1, 0, 
       AutoLayout      =   testview, 3, TopLayoutGuide, 4, False, +1.00, 1, 1, 0, 
+      AutoLayout      =   testview, 1, <Parent>, 1, False, +1.00, 1, 1, 0, 
+      AutoLayout      =   testview, 4, <Parent>, 4, False, +1.00, 2, 1, 0, 
+      AutoLayout      =   testview, 2, <Parent>, 2, False, +1.00, 1, 1, 0, 
       Height          =   415.0
       Left            =   0
       LockedInPosition=   False
@@ -94,7 +94,7 @@ End
 		  testview.EmitterLayer.EmitterCells = mylib
 		  dim myimage as new iOSLibImage (iosliblogo)
 		  
-		  myEmitterCell.Contents =new ioslibobject ( myimage.toCGImage)
+		  myEmitterCell.Contents =new ioslibobject ( myimage.toCGImage.CFTypeRef)
 		  myEmitterCell.Name = "iOSLibLogoCell"
 		  
 		  myEmitterCell.LifeTime = 100

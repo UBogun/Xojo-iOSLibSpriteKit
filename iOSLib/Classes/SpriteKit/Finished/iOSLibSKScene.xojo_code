@@ -21,6 +21,15 @@ Inherits iOSLibSKEffectNode
 		End Sub
 	#tag EndMethod
 
+	#tag Method, Flags = &h0
+		Sub Destructor()
+		  if mhasownership then
+		    me.RemoveAllActions
+		    me.RemoveAllChildren
+		  end if
+		End Sub
+	#tag EndMethod
+
 	#tag Method, Flags = &h21
 		Private Shared Sub impl_didApplyConstraintsForScene(pid as ptr, sel as ptr, Scene as Ptr)
 		  dim ego as new iOSLibSKScene (pid)
@@ -381,11 +390,6 @@ Inherits iOSLibSKEffectNode
 
 
 	#tag ViewBehavior
-		#tag ViewProperty
-			Name="Alpha"
-			Group="Behavior"
-			Type="Double"
-		#tag EndViewProperty
 		#tag ViewProperty
 			Name="DebugDescription"
 			Group="Behavior"

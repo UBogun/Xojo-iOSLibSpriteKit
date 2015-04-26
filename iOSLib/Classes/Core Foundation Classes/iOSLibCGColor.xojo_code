@@ -107,6 +107,7 @@ Inherits ioslibcfobject
 		  dim a as double = (255 - aColor.Alpha) / 255
 		  
 		  super.Constructor ( CGColorCreateGenericRGB (r, g, b, a), true)
+		  mHasownership = true
 		  
 		End Sub
 	#tag EndMethod
@@ -114,34 +115,28 @@ Inherits ioslibcfobject
 	#tag Method, Flags = &h0
 		Sub Constructor(gray as Double, alpha as double)
 		  super.Constructor ( CGColorCreateGenericGray (gray, alpha), true)
-		  
+		  mhasownership = true
 		End Sub
 	#tag EndMethod
 
 	#tag Method, Flags = &h0
 		Sub Constructor(red as Double, green as Double, blue as double, alpha as double)
 		  super.Constructor( CGColorCreateGenericRGB (red, green, Blue, alpha), true)
-		  
+		  mHasOwnership = true
 		End Sub
 	#tag EndMethod
 
 	#tag Method, Flags = &h0
 		Sub Constructor(cyan as Double, magenta as Double, yellow as double, black as double, alpha as double)
 		  super.Constructor( CGColorCreateGenericCMYK (cyan, magenta, yellow, black, alpha), true)
-		  
+		  mhasownership = true
 		End Sub
 	#tag EndMethod
 
 	#tag Method, Flags = &h0
 		Sub Constructor(aColor as iosLibCGColor, alpha as double)
 		  super.Constructor ( CGColorCreateCopyWithAlpha (acolor.mCFTypeRef, alpha), true)
-		  
-		End Sub
-	#tag EndMethod
-
-	#tag Method, Flags = &h21
-		Private Sub Destructor()
-		   CGColorRelease (mCFTypeRef)
+		  mHasOwnership = true
 		End Sub
 	#tag EndMethod
 

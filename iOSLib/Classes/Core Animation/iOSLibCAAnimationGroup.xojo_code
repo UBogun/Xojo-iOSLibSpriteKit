@@ -36,8 +36,7 @@ Inherits iOSLibCAAnimation
 	#tag Method, Flags = &h21
 		Private Sub MakeInstance()
 		  Super.Constructor (alloc(ClassPtr))
-		  mhasownership = true
-		  
+		  RetainClassObject
 		  dim mydelegate as new iOSLibCAAnimationDelegate
 		  setDelegate mydelegate.id
 		End Sub
@@ -74,11 +73,6 @@ Inherits iOSLibCAAnimation
 
 
 	#tag ViewBehavior
-		#tag ViewProperty
-			Name="Alpha"
-			Group="Behavior"
-			Type="Double"
-		#tag EndViewProperty
 		#tag ViewProperty
 			Name="Autoreverses"
 			Group="Behavior"

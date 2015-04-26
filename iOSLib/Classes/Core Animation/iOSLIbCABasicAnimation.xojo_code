@@ -102,6 +102,7 @@ Inherits iOSLibCAPropertyAnimation
 		Private Sub MakeAnimation(Key as Properties)
 		  dim myprop as text = NameForProperty (key)
 		  Super.Constructor (AnimationWithKeyPath (ClassPtr, myprop))
+		  RetainClassObject
 		  dim mydelegate as new iOSLibCAAnimationDelegate
 		  setDelegate mydelegate.id
 		  
@@ -180,11 +181,6 @@ Inherits iOSLibCAPropertyAnimation
 			Name="Additive"
 			Group="Behavior"
 			Type="Boolean"
-		#tag EndViewProperty
-		#tag ViewProperty
-			Name="Alpha"
-			Group="Behavior"
-			Type="Double"
 		#tag EndViewProperty
 		#tag ViewProperty
 			Name="Autoreverses"

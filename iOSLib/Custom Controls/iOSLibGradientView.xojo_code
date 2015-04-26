@@ -54,7 +54,7 @@ Inherits iOSUserControl
 			    methods.Append new TargetClassMethodHelper("layoutSubviews", AddressOf impl_layoutSubviews, "v@:")
 			    // methods.Append new TargetClassMethodHelper("layerClass", AddressOf impl_layerClassGradient, "#@:",true, true)
 			    
-			    mClassPtr = BuildTargetClass("iOSLibUIView","iOSLibGradientView",methods)
+			    mClassPtr = BuildTargetClass("UIImageView","iOSLibGradientView",methods)
 			  end if
 			  return mClassPtr
 			End Get

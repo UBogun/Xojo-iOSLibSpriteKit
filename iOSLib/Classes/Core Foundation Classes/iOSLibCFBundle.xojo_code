@@ -65,6 +65,7 @@ Inherits iOSLibCFObject
 		Sub constructor(identifier as CFStringRef)
 		  // Calling the overridden superclass constructor.
 		  Super.Constructor (CFBundleGetBundleWithIdentifier (identifier), true)
+		  mHasOwnership = true
 		  
 		End Sub
 	#tag EndMethod

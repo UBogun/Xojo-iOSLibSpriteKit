@@ -6,6 +6,8 @@ Implements iOSLibEventReceiver
 		Sub Close()
 		  if mscene <> nil then
 		    mscene.RemoveObserver (self)
+		    mScene.RemoveAllActions
+		    mScene.RemoveAllChildren
 		    if mScene.View <> nil then
 		      mscene.RemoveFromParent
 		    end if
@@ -121,44 +123,48 @@ Implements iOSLibEventReceiver
 	#tag Method, Flags = &h0
 		Sub ReceivedEvent(Details as iOSLibArray)
 		  // Part of the iOSLibEventReceiver interface.
-		  dim compare as text = Details.TextAtIndex(0)
-		  Select case  compare
-		  case iOSLibSKViewForViewer.WillMoveToSuperview
-		    dim newview as ioslibview  = iOSLibView.MakeFromPtr (Details.PtrAtIndex(1))
-		    if Details.Count > 1 then newview  = iOSLibView.MakeFromPtr (Details.PtrAtIndex(1))
-		    RaiseEvent WillMoveToSuperview (newview)
-		  case iOSLibSKViewForViewer.WillMoveToWindow
-		    dim windowptr as ptr
-		    if Details.Count > 1 then WindowPtr = Details.PtrAtIndex(1)
-		    RaiseEvent WillMoveToWindow (windowptr)
-		  case iOSLibSKViewForViewer.DidAddSubview
-		    dim newview as ioslibview  = iOSLibView.MakeFromPtr (Details.PtrAtIndex(1))
-		    RaiseEvent DidAddSubview (newview)
-		  case iOSLibSKViewForViewer.DidMoveToSuperview
-		    RaiseEvent DidMoveToSuperview
-		    
-		  case iOSLibSKViewForViewer.DidMoveToWindow
-		    RaiseEvent DidMoveToWindow
-		  case iOSLibSKViewForViewer.WillRemoveSubview
-		    dim newview as ioslibview  = iOSLibView.MakeFromPtr (Details.PtrAtIndex(1))
-		    RaiseEvent WillRemoveSubview (newview)
-		  case ioslibskscenewithinterface.DidApplyConstraints
-		    RaiseEvent DidApplyConstraints
-		  case iOSLibSKViewForViewer.TouchesBegan
-		    raiseEvent TouchesBegan (ioslibset.makefromptr (Details.PtrAtIndex(1)), ioslibevent.makefromptr  (Details.PtrAtIndex(2)))
-		  case iOSLibSKViewForViewer.TouchesEnded
-		    raiseEvent TouchesEnded (ioslibset.makefromptr (Details.PtrAtIndex(1)), ioslibevent.makefromptr  (Details.PtrAtIndex(2)))
-		  case iOSLibSKViewForViewer.TouchesMoved
-		    raiseEvent TouchesMoved (ioslibset.makefromptr (Details.PtrAtIndex(1)), ioslibevent.makefromptr  (Details.PtrAtIndex(2)))
-		  case iOSLibSKViewForViewer.TouchesCancelled
-		    raiseEvent TouchesCancelled (ioslibset.makefromptr (Details.PtrAtIndex(1)), ioslibevent.makefromptr  (Details.PtrAtIndex(2)))
-		  case ioslibview.MotionBegan
-		    dim mynumber as iOSLibNumber = iOSLibNumber.MakefromPtr(Details.PtrAtIndex(1))
-		    dim myType as iOSLibEvent.UIEventSubtype = iOSLibEvent.UIEventSubtype (mynumber.IntegerValue)
-		    RaiseEvent MotionBegan (mytype, ioslibevent.makefromptr  (Details.PtrAtIndex(2)))
-		  case iOSLibView.LayoutSubviews
-		    raiseevent LayoutSubviews
-		  End Select
+		  if not Details.IsNIL then
+		    if Details.Count > 0 then
+		      dim compare as text = Details.TextAtIndex(0)
+		      Select case  compare
+		      case iOSLibSKViewForViewer.WillMoveToSuperview
+		        dim newview as ioslibview 
+		        if Details.Count > 1 then newview  = iOSLibView.MakeFromPtr (Details.PtrAtIndex(1))
+		        RaiseEvent WillMoveToSuperview (newview)
+		      case iOSLibSKViewForViewer.WillMoveToWindow
+		        dim windowptr as ptr
+		        if Details.Count > 1 then WindowPtr = Details.PtrAtIndex(1)
+		        RaiseEvent WillMoveToWindow (windowptr)
+		      case iOSLibSKViewForViewer.DidAddSubview
+		        dim newview as ioslibview  = iOSLibView.MakeFromPtr (Details.PtrAtIndex(1))
+		        RaiseEvent DidAddSubview (newview)
+		      case iOSLibSKViewForViewer.DidMoveToSuperview
+		        RaiseEvent DidMoveToSuperview
+		        
+		      case iOSLibSKViewForViewer.DidMoveToWindow
+		        RaiseEvent DidMoveToWindow
+		      case iOSLibSKViewForViewer.WillRemoveSubview
+		        dim newview as ioslibview  = iOSLibView.MakeFromPtr (Details.PtrAtIndex(1))
+		        RaiseEvent WillRemoveSubview (newview)
+		      case ioslibskscenewithinterface.DidApplyConstraints
+		        RaiseEvent DidApplyConstraints
+		      case iOSLibSKViewForViewer.TouchesBegan
+		        raiseEvent TouchesBegan (ioslibset.makefromptr (Details.PtrAtIndex(1)), ioslibevent.makefromptr  (Details.PtrAtIndex(2)))
+		      case iOSLibSKViewForViewer.TouchesEnded
+		        raiseEvent TouchesEnded (ioslibset.makefromptr (Details.PtrAtIndex(1)), ioslibevent.makefromptr  (Details.PtrAtIndex(2)))
+		      case iOSLibSKViewForViewer.TouchesMoved
+		        raiseEvent TouchesMoved (ioslibset.makefromptr (Details.PtrAtIndex(1)), ioslibevent.makefromptr  (Details.PtrAtIndex(2)))
+		      case iOSLibSKViewForViewer.TouchesCancelled
+		        raiseEvent TouchesCancelled (ioslibset.makefromptr (Details.PtrAtIndex(1)), ioslibevent.makefromptr  (Details.PtrAtIndex(2)))
+		      case ioslibview.MotionBegan
+		        dim mynumber as iOSLibNumber = iOSLibNumber.MakefromPtr(Details.PtrAtIndex(1))
+		        dim myType as iOSLibEvent.UIEventSubtype = iOSLibEvent.UIEventSubtype (mynumber.IntegerValue)
+		        RaiseEvent MotionBegan (mytype, ioslibevent.makefromptr  (Details.PtrAtIndex(2)))
+		      case iOSLibView.LayoutSubviews
+		        raiseevent LayoutSubviews
+		      End Select
+		    end if
+		  end if
 		  
 		End Sub
 	#tag EndMethod

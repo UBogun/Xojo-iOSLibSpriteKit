@@ -79,7 +79,7 @@ Implements iOSLibGeneralObject
 		    system.DebugLog "Releasing "+DebugDescription+" AR: "+RetainCount.totext
 		    autoRelease
 		  else
-		    system.DebugLog "Losing Handle on "+DebugDescription+" AR: "+RetainCount.totext
+		    // system.DebugLog "Losing Handle on "+DebugDescription+" AR: "+RetainCount.totext
 		  end if
 		End Sub
 	#tag EndMethod

@@ -101,7 +101,7 @@ Inherits iOSLibObject
 		  if HTMLViewDict.Value (pid) <> nil then
 		    dim myRef as WeakRef = HTMLViewDict.Value(pid)
 		    dim myViewer as iOSLibHTMLViewer= iOSLibHTMLViewer (myRef.Value)
-		    myViewer.informonShouldStart (Request, NavigationType)
+		    return myViewer.informonShouldStart (Request, NavigationType)
 		  end if
 		  
 		End Function
@@ -140,6 +140,19 @@ Inherits iOSLibObject
 	#tag Property, Flags = &h21
 		Private Shared RetainDict As Dictionary
 	#tag EndProperty
+
+
+	#tag Constant, Name = DidFailLoad, Type = Text, Dynamic = False, Default = \"DidFailLoad", Scope = Public
+	#tag EndConstant
+
+	#tag Constant, Name = DidFinishLoad, Type = Text, Dynamic = False, Default = \"DidFinishLoad", Scope = Public
+	#tag EndConstant
+
+	#tag Constant, Name = DidStartLoad, Type = Text, Dynamic = False, Default = \"DidStartLoad", Scope = Public
+	#tag EndConstant
+
+	#tag Constant, Name = ShouldStartLoad, Type = Text, Dynamic = False, Default = \"ShouldStartLoad", Scope = Public
+	#tag EndConstant
 
 
 	#tag ViewBehavior

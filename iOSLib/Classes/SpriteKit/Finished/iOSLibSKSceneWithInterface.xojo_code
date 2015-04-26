@@ -153,7 +153,7 @@ Implements iOSLibEventForwarder
 	#tag Method, Flags = &h21
 		Private Shared Sub impl_didMoveToView(pid as ptr, sel as ptr, view as Ptr)
 		  if GetView(pid) <> nil then
-		    if RetainDict.HasKey (pid) then 
+		    if RetainDict.HasKey (pid) then
 		      getview(pid).informondidMoveToView (view)
 		    end if
 		  end if
@@ -316,11 +316,6 @@ Implements iOSLibEventForwarder
 
 
 	#tag ViewBehavior
-		#tag ViewProperty
-			Name="Alpha"
-			Group="Behavior"
-			Type="Double"
-		#tag EndViewProperty
 		#tag ViewProperty
 			Name="DebugDescription"
 			Group="Behavior"

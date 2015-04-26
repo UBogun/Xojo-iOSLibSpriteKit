@@ -40,17 +40,26 @@ Implements iOSLibGeneralObject
 	#tag Method, Flags = &h0
 		Sub Constructor(aTypeRef as Ptr, dontretain as boolean = false)
 		  mCFTypeRef = aTypeRef
+		  
+		  // Due to the Create Rule, whenever a CF method with "create" or "copy" in its name is used, ond has ownership and does not need to retian it, but release it
+		  //Therefore creation method call this Constructor with a "true" for "dontretain"
+		  // The Haswonership flag is set separately by the cunstructors if however the need for getting an object without retaining it should arise.
+		  // When hasownership is true, the object gets released.
+		  
 		  if not dontretain then
 		    Retain
+		    mhasownership = true
 		  end if
 		End Sub
 	#tag EndMethod
 
-	#tag Method, Flags = &h21
-		Private Sub Destructor()
+	#tag Method, Flags = &h1
+		Protected Sub Destructor()
 		  if not isNIL then
-		    system.DebugLog "Releasing CFObject "+CFTypeDescription+", "+Description+", ARC: "+RetainCount.ToText
-		    release
+		    if mhasownership then
+		      system.DebugLog "Releasing CFObject "+CFTypeDescription+", "+Description+", ARC: "+RetainCount.ToText
+		      release
+		    end if
 		  end if
 		End Sub
 	#tag EndMethod
@@ -66,6 +75,12 @@ Implements iOSLibGeneralObject
 		  // Part of the iOSLibGeneralObject interface.
 		  
 		  return mCFTypeRef
+		End Function
+	#tag EndMethod
+
+	#tag Method, Flags = &h0
+		 Shared Function MakeFromCFTypeRef(aCFTypeRef as ptr) As iOSLibCFObject
+		  return if (aCFTypeRef = nil , NIL,  new iOSLibCFObject (aCFTypeRef))
 		End Function
 	#tag EndMethod
 
@@ -127,6 +142,15 @@ Implements iOSLibGeneralObject
 	#tag ComputedProperty, Flags = &h0
 		#tag Getter
 			Get
+			  return mHasOwnership
+			End Get
+		#tag EndGetter
+		HasOwnership As Boolean
+	#tag EndComputedProperty
+
+	#tag ComputedProperty, Flags = &h0
+		#tag Getter
+			Get
 			  return (mcftyperef = nil)
 			End Get
 		#tag EndGetter
@@ -135,6 +159,10 @@ Implements iOSLibGeneralObject
 
 	#tag Property, Flags = &h1
 		Attributes( hidden ) Protected mCFTypeRef As Ptr
+	#tag EndProperty
+
+	#tag Property, Flags = &h0
+		Attributes( hidden ) mHasOwnership As Boolean
 	#tag EndProperty
 
 	#tag ComputedProperty, Flags = &h0

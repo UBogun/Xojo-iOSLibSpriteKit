@@ -43,7 +43,7 @@ Inherits iOSLibObject
 	#tag Method, Flags = &h0
 		Function Resize(Scalefactor as double) As ioslibimage
 		  declare function initWithCGImageScale lib UIKit selector "initWithCGImage:scale:orientation:" (id as ptr, aciimage as ptr, Scalefactor as double, orientation as integer) as ptr
-		  return new iOSLibImage ( initWithCGImageScale  (alloc(ClassPtr),me.toCGImage, Scalefactor, 1))
+		  return new iOSLibImage ( initWithCGImageScale  (alloc(ClassPtr),me.toCGImage.CFTypeRef, Scalefactor, 1))
 		End Function
 	#tag EndMethod
 
@@ -80,10 +80,10 @@ Inherits iOSLibObject
 		#tag Getter
 			Get
 			  Declare function CGImage lib UIKit selector "CGImage" (id as ptr) as ptr
-			  return CGImage (id)
+			  return iOSLibCGImage.MakeFromCFTypeRef( CGImage (id))
 			End Get
 		#tag EndGetter
-		toCGImage As ptr
+		toCGImage As iOSLibCGImage
 	#tag EndComputedProperty
 
 	#tag ComputedProperty, Flags = &h0
