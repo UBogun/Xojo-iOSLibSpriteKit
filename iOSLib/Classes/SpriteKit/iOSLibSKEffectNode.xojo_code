@@ -1,6 +1,36 @@
 #tag Class
 Protected Class iOSLibSKEffectNode
 Inherits iOSLibSKNode
+	#tag ComputedProperty, Flags = &h0
+		#tag Getter
+			Get
+			  return BlendMode
+			End Get
+		#tag EndGetter
+		#tag Setter
+			Set
+			  setBlendMode value
+			End Set
+		#tag EndSetter
+		BlendMode As SKBlendMode
+	#tag EndComputedProperty
+
+	#tag ComputedProperty, Flags = &h0
+		#tag Getter
+			Get
+			  Declare function shouldCenterFilter lib SpriteKit selector "shouldCenterFilter" (id as ptr) as Boolean
+			  return shouldCenterFilter (id)
+			End Get
+		#tag EndGetter
+		#tag Setter
+			Set
+			  Declare Sub setShouldCenterFilter lib SpriteKit selector "setShouldCenterFilter:" (id as ptr, value as Boolean)
+			  setShouldCenterFilter (id, value)
+			End Set
+		#tag EndSetter
+		CenterFilter As Boolean
+	#tag EndComputedProperty
+
 	#tag ComputedProperty, Flags = &h1
 		#tag Getter
 			Get
@@ -16,20 +46,64 @@ Inherits iOSLibSKNode
 		Protected Shared ClassPtr As Ptr
 	#tag EndComputedProperty
 
+	#tag ComputedProperty, Flags = &h0
+		#tag Getter
+			Get
+			  Declare function shouldEnableEffects lib SpriteKit selector "shouldEnableEffects" (id as ptr) as Boolean
+			  return shouldEnableEffects (id)
+			End Get
+		#tag EndGetter
+		#tag Setter
+			Set
+			  Declare Sub setShouldEnableEffects lib SpriteKit selector "setShouldEnableEffects:" (id as ptr, value as Boolean)
+			  setShouldEnableEffects (id, value)
+			End Set
+		#tag EndSetter
+		EnableEffects As Boolean
+	#tag EndComputedProperty
+
+	#tag ComputedProperty, Flags = &h0
+		#tag Getter
+			Get
+			  Declare function filter lib SpriteKit selector "filter" (id as ptr) as ptr
+			  return iOSLibCIFilter.MakeFromPtr (filter(id))
+			End Get
+		#tag EndGetter
+		#tag Setter
+			Set
+			  Declare Sub setFilter lib SpriteKit selector "setFilter:" (id as ptr, value as Ptr)
+			  setFilter (id, value.id)
+			End Set
+		#tag EndSetter
+		Filter As iOSLibCIFilter
+	#tag EndComputedProperty
+
+	#tag ComputedProperty, Flags = &h0
+		#tag Getter
+			Get
+			  DEclare Function shouldRasterize lib SpriteKit selector "shouldRasterize" (id as ptr) as Boolean
+			  return shouldRasterize (id)
+			  
+			End Get
+		#tag EndGetter
+		#tag Setter
+			Set
+			  DEclare Sub setShouldRasterize lib SpriteKit selector "setShouldRasterize:" (id as ptr, value as Boolean)
+			  setShouldRasterize id, value
+			End Set
+		#tag EndSetter
+		Rasterize As Boolean
+	#tag EndComputedProperty
+
 
 	#tag ViewBehavior
-		#tag ViewProperty
-			Name="Alpha"
-			Group="Behavior"
-			Type="Double"
-		#tag EndViewProperty
 		#tag ViewProperty
 			Name="DebugDescription"
 			Group="Behavior"
 			Type="Text"
 		#tag EndViewProperty
 		#tag ViewProperty
-			Name="HasActions"
+			Name="ExecutesActions"
 			Group="Behavior"
 			Type="Boolean"
 		#tag EndViewProperty

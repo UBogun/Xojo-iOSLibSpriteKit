@@ -1,28 +1,34 @@
 #tag Class
-Protected Class iOSLibCGPathRect
-Inherits iOSLibCGPath
-	#tag Method, Flags = &h1
-		Protected Function CGPathCreateWithRect(ARect as NSRect) As Ptr
-		  #if Target64Bit
-		    Declare Function CGPathCreateWithRect lib CoreGraphics (arect as NSRect, aTransform as Ptr) as ptr
-		    return CGPathCreateWithRect (ARect, NIL)
-		  #elseif Target32Bit
-		    Declare Function CGPathCreateWithRect lib CoreGraphics (arect as NSRect32Bit, aTransform as Ptr) as ptr
-		    return CGPathCreateWithRect (ARect.toNSRect32, NIL)
-		  #endif
-		  
-		End Function
-	#tag EndMethod
-
+Protected Class iOSLibCIBlurFilter
+Inherits iOSLibCIFilter
 	#tag Method, Flags = &h1000
-		Sub Constructor(ARect as NSRect)
+		Sub Constructor()
 		  // Calling the overridden superclass constructor.
 		  // Note that this may need modifications if there are multiple constructor choices.
 		  // Possible constructor calls:
-		  // Constructor() -- From iOSLibCGPath
-		  // Constructor(aTypeRef as Ptr) -- From iOSLibCFObject
-		  Super.Constructor (CGPathCreateWithRect(ARect), true)
-		  MHasOwnership = true
+		  // Constructor() -- From iOSLibCIFilter
+		  // Constructor(FilterName as CFStringRef) -- From iOSLibCIFilter
+		  // Constructor() -- From iOSLibObject
+		  // Constructor(AnId as Ptr) -- From iOSLibObject
+		  Super.Constructor ("CIGaussianBlur")
+		  
+		  
+		End Sub
+	#tag EndMethod
+
+	#tag Method, Flags = &h1000
+		Sub Constructor(anImage as  iOSImage)
+		  // Calling the overridden superclass constructor.
+		  // Note that this may need modifications if there are multiple constructor choices.
+		  // Possible constructor calls:
+		  // Constructor() -- From iOSLibCIFilter
+		  // Constructor(FilterName as CFStringRef) -- From iOSLibCIFilter
+		  // Constructor() -- From iOSLibObject
+		  // Constructor(AnId as Ptr) -- From iOSLibObject
+		  Constructor
+		  InputImage = new ioslibimage (anImage)
+		  
+		  
 		  
 		End Sub
 	#tag EndMethod
@@ -30,12 +36,7 @@ Inherits iOSLibCGPath
 
 	#tag ViewBehavior
 		#tag ViewProperty
-			Name="CFTypeDescription"
-			Group="Behavior"
-			Type="Text"
-		#tag EndViewProperty
-		#tag ViewProperty
-			Name="Description"
+			Name="DebugDescription"
 			Group="Behavior"
 			Type="Text"
 		#tag EndViewProperty
@@ -52,17 +53,7 @@ Inherits iOSLibCGPath
 			Type="Integer"
 		#tag EndViewProperty
 		#tag ViewProperty
-			Name="isEmpty"
-			Group="Behavior"
-			Type="Boolean"
-		#tag EndViewProperty
-		#tag ViewProperty
-			Name="isNIL"
-			Group="Behavior"
-			Type="Boolean"
-		#tag EndViewProperty
-		#tag ViewProperty
-			Name="isRect"
+			Name="IsNIL"
 			Group="Behavior"
 			Type="Boolean"
 		#tag EndViewProperty
@@ -83,11 +74,6 @@ Inherits iOSLibCGPath
 			Visible=true
 			Group="ID"
 			Type="String"
-		#tag EndViewProperty
-		#tag ViewProperty
-			Name="RetainCount"
-			Group="Behavior"
-			Type="Integer"
 		#tag EndViewProperty
 		#tag ViewProperty
 			Name="Super"

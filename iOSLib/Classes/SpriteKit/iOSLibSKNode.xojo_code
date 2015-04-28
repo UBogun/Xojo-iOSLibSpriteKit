@@ -356,18 +356,6 @@ Inherits iOSLibResponder
 			  
 			End Get
 		#tag EndGetter
-		#tag Setter
-			Set
-			  #if Target64Bit
-			    declare Sub setCalculateAccumulatedFrame lib SpriteKit selector "setCalculateAccumulatedFrame:" (id as ptr, value as NSRect)
-			    setCalculateAccumulatedFrame (id, value)
-			  #elseif Target32Bit
-			    declare sub setCalculateAccumulatedFrame lib SpriteKit selector "setCalculateAccumulatedFrame:" (id as ptr, value as NSRect32Bit)
-			    setCalculateAccumulatedFrame(id, value.toNSRect32)
-			  #endif
-			  
-			End Set
-		#tag EndSetter
 		AccumulatedFrame As NSRect
 	#tag EndComputedProperty
 
@@ -399,21 +387,21 @@ Inherits iOSLibResponder
 	#tag ComputedProperty, Flags = &h0
 		#tag Getter
 			Get
-			  return getFrame
-			End Get
-		#tag EndGetter
-		Frame As NSRect
-	#tag EndComputedProperty
-
-	#tag ComputedProperty, Flags = &h0
-		#tag Getter
-			Get
 			  declare function hasActions lib SpriteKit selector "hasActions" (id as ptr) as Boolean
 			  return hasActions (id)
 			  
 			End Get
 		#tag EndGetter
-		HasActions As Boolean
+		ExecutesActions As Boolean
+	#tag EndComputedProperty
+
+	#tag ComputedProperty, Flags = &h0
+		#tag Getter
+			Get
+			  return getFrame
+			End Get
+		#tag EndGetter
+		Frame As NSRect
 	#tag EndComputedProperty
 
 	#tag ComputedProperty, Flags = &h0
@@ -686,17 +674,12 @@ Inherits iOSLibResponder
 
 	#tag ViewBehavior
 		#tag ViewProperty
-			Name="Alpha"
-			Group="Behavior"
-			Type="Double"
-		#tag EndViewProperty
-		#tag ViewProperty
 			Name="DebugDescription"
 			Group="Behavior"
 			Type="Text"
 		#tag EndViewProperty
 		#tag ViewProperty
-			Name="HasActions"
+			Name="ExecutesActions"
 			Group="Behavior"
 			Type="Boolean"
 		#tag EndViewProperty

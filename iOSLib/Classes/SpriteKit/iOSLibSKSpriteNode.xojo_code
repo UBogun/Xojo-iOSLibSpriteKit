@@ -313,14 +313,19 @@ Inherits iOSLibSKNode
 
 	#tag ViewBehavior
 		#tag ViewProperty
-			Name="Alpha"
-			Group="Behavior"
-			Type="Double"
-		#tag EndViewProperty
-		#tag ViewProperty
 			Name="BlendMode"
 			Group="Behavior"
 			Type="SKBlendMode"
+			EditorType="Enum"
+			#tag EnumValues
+				"0 - Alpha"
+				"1 - Add"
+				"2 - Subtract"
+				"3 - Multiply"
+				"4 - MultiplyX2"
+				"5 - Screen"
+				"6 - Replace"
+			#tag EndEnumValues
 		#tag EndViewProperty
 		#tag ViewProperty
 			Name="ColorBlendFactor"
@@ -333,7 +338,7 @@ Inherits iOSLibSKNode
 			Type="Text"
 		#tag EndViewProperty
 		#tag ViewProperty
-			Name="HasActions"
+			Name="ExecutesActions"
 			Group="Behavior"
 			Type="Boolean"
 		#tag EndViewProperty

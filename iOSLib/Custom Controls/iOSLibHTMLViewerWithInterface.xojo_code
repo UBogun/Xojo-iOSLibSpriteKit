@@ -33,7 +33,7 @@ Implements iOSLibEventForwarder
 		  myarray.AddText  iOSLibWebViewDelegate.ShouldStartLoad
 		  myarray.Addobject new ioslibnumber (integer(navigationtype))
 		  NotifyObservers (myarray)
-		  return true // needs to be changed to forwarding mechanism 
+		  return true // needs to be changed to forwarding mechanism
 		End Function
 	#tag EndMethod
 

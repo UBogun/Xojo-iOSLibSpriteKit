@@ -391,12 +391,37 @@ Inherits iOSLibSKEffectNode
 
 	#tag ViewBehavior
 		#tag ViewProperty
+			Name="BlendMode"
+			Group="Behavior"
+			Type="SKBlendMode"
+			EditorType="Enum"
+			#tag EnumValues
+				"0 - Alpha"
+				"1 - Add"
+				"2 - Subtract"
+				"3 - Multiply"
+				"4 - MultiplyX2"
+				"5 - Screen"
+				"6 - Replace"
+			#tag EndEnumValues
+		#tag EndViewProperty
+		#tag ViewProperty
+			Name="CenterFilter"
+			Group="Behavior"
+			Type="Boolean"
+		#tag EndViewProperty
+		#tag ViewProperty
 			Name="DebugDescription"
 			Group="Behavior"
 			Type="Text"
 		#tag EndViewProperty
 		#tag ViewProperty
-			Name="HasActions"
+			Name="EnableEffects"
+			Group="Behavior"
+			Type="Boolean"
+		#tag EndViewProperty
+		#tag ViewProperty
+			Name="ExecutesActions"
 			Group="Behavior"
 			Type="Boolean"
 		#tag EndViewProperty
@@ -442,6 +467,11 @@ Inherits iOSLibSKEffectNode
 		#tag EndViewProperty
 		#tag ViewProperty
 			Name="Paused"
+			Group="Behavior"
+			Type="Boolean"
+		#tag EndViewProperty
+		#tag ViewProperty
+			Name="Rasterize"
 			Group="Behavior"
 			Type="Boolean"
 		#tag EndViewProperty

@@ -143,6 +143,9 @@ Protected Module CoreGraphicsLib
 	#tag Constant, Name = CoreGraphicsPath, Type = Text, Dynamic = False, Default = \"com.apple.CoreGraphics", Scope = Public
 	#tag EndConstant
 
+	#tag Constant, Name = CoreImage, Type = Text, Dynamic = False, Default = \"CoreImage.framework", Scope = Public
+	#tag EndConstant
+
 	#tag Constant, Name = CoreImagePath, Type = Text, Dynamic = False, Default = \"com.apple.CoreImage", Scope = Public
 	#tag EndConstant
 

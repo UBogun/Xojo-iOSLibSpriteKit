@@ -216,10 +216,24 @@ Implements iOSLibGeneralObject
 	#tag EndMethod
 
 	#tag Method, Flags = &h0
+		Sub setValueForKey(Key as CFStringRef, value as iOSLibGeneralObject)
+		  Declare sub setValueForKey lib Foundation selector "setValue:forKey:" (id as ptr, value as ptr, Key as CFStringRef)
+		  setValueForKey (id, value.GeneralID, Key)
+		End Sub
+	#tag EndMethod
+
+	#tag Method, Flags = &h0
 		Sub setValueForKeyPath(KeyPath as CFStringRef, value as iOSLibGeneralObject)
 		  Declare sub setValueForKeyPath lib UIKit selector "setValue:forKeyPath:" (id as ptr, value as ptr, KeyPath as CFStringRef)
 		  setValueForKeyPath (id, value.GeneralID, KeyPath)
 		End Sub
+	#tag EndMethod
+
+	#tag Method, Flags = &h0
+		Function ValueForKey(Key as CFStringRef) As ptr
+		  Declare Function ValueForKey lib UIKit selector "valueForKey:" (id as ptr, KeyPath as CFStringRef) as ptr
+		  return ValueForKey (id, Key)
+		End Function
 	#tag EndMethod
 
 	#tag Method, Flags = &h0

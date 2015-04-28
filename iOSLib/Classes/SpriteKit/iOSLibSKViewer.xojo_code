@@ -128,7 +128,7 @@ Implements iOSLibEventReceiver
 		      dim compare as text = Details.TextAtIndex(0)
 		      Select case  compare
 		      case iOSLibSKViewForViewer.WillMoveToSuperview
-		        dim newview as ioslibview 
+		        dim newview as ioslibview
 		        if Details.Count > 1 then newview  = iOSLibView.MakeFromPtr (Details.PtrAtIndex(1))
 		        RaiseEvent WillMoveToSuperview (newview)
 		      case iOSLibSKViewForViewer.WillMoveToWindow

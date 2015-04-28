@@ -58,15 +58,6 @@ Inherits iOSLibView
 	#tag EndMethod
 
 	#tag Method, Flags = &h21
-		Private Shared Sub impl_didMoveToView(pid as ptr, sel as ptr, aview as ptr)
-		  dim ego as new iOSLibSKView (pid)
-		  ego.informondidmovetoview (aview)
-		  
-		  
-		End Sub
-	#tag EndMethod
-
-	#tag Method, Flags = &h21
 		Private Shared Sub impl_DidMoveToWindow(pid as ptr, sel as ptr)
 		  dim ego as new iOSLibSKView (pid)
 		  ego.informonDidMoveToWindow
@@ -157,12 +148,6 @@ Inherits iOSLibView
 	#tag EndMethod
 
 	#tag Method, Flags = &h0
-		Attributes( hidden )  Sub informondidMoveToView(view as Ptr)
-		  RaiseEvent DidMoveToView (ioslibskview.makefromptr(view))
-		End Sub
-	#tag EndMethod
-
-	#tag Method, Flags = &h0
 		 Shared Function MakeFromPtr(aPtr as Ptr) As iOSLibSKView
 		  Return if (aptr = NIL, NIL, new iOSLibSKView (aptr))
 		End Function
@@ -186,6 +171,26 @@ Inherits iOSLibView
 		    isenabled = true // If something goes wrong, we have an expection here.
 		  end if
 		  return isenabled
+		End Function
+	#tag EndMethod
+
+	#tag Method, Flags = &h0
+		Function TextureFromNode(aNode as ioslibsknode) As iOSLibSKTexture
+		  declare Function textureFromNode lib spritekit selector "textureFromNode:" (id as ptr, aNode as Ptr) as Ptr
+		  return iOSLibSKTexture.MakefromPtr (textureFromNode (id, anode.id))
+		  
+		End Function
+	#tag EndMethod
+
+	#tag Method, Flags = &h0
+		Function TextureFromNode(aNode as ioslibsknode, crop as nsrect) As iOSLibSKTexture
+		  #if Target64Bit
+		    declare Function textureFromNodeCrop lib spritekit selector "textureFromNode:crop:" (id as ptr, aNode as Ptr, crop as NSRect) as Ptr
+		    return iOSLibSKTexture.MakefromPtr (textureFromNodeCrop (id, anode.id, crop))
+		  #elseif Target32Bit
+		    declare Function textureFromNodeCrop lib spritekit selector "textureFromNode:crop:" (id as ptr, aNode as Ptr, crop as NSRect32Bit) as Ptr
+		    return iOSLibSKTexture.MakefromPtr( textureFromNodeCrop (id, anode.id, crop.toNSRect32))
+		  #endif
 		End Function
 	#tag EndMethod
 

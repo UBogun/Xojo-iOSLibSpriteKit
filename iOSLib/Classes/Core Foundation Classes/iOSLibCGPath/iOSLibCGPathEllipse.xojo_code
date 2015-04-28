@@ -14,6 +14,18 @@ Inherits iOSLibCGPath
 		End Function
 	#tag EndMethod
 
+	#tag Method, Flags = &h1021
+		Private Sub Constructor()
+		  
+		End Sub
+	#tag EndMethod
+
+	#tag Method, Flags = &h1000
+		Sub Constructor(radius as double)
+		  Constructor (nsrect (0,0,radius, radius))
+		End Sub
+	#tag EndMethod
+
 	#tag Method, Flags = &h1000
 		Sub Constructor(ARect as NSRect)
 		  // Calling the overridden superclass constructor.
@@ -22,6 +34,7 @@ Inherits iOSLibCGPath
 		  // Constructor() -- From iOSLibCGPath
 		  // Constructor(aTypeRef as Ptr) -- From iOSLibCFObject
 		  Super.Constructor (CGPathCreateWithEllipseInRect(ARect), true)
+		  Mhasownership = true
 		  
 		End Sub
 	#tag EndMethod
@@ -37,6 +50,11 @@ Inherits iOSLibCGPath
 			Name="Description"
 			Group="Behavior"
 			Type="Text"
+		#tag EndViewProperty
+		#tag ViewProperty
+			Name="HasOwnership"
+			Group="Behavior"
+			Type="Boolean"
 		#tag EndViewProperty
 		#tag ViewProperty
 			Name="Index"
@@ -66,6 +84,11 @@ Inherits iOSLibCGPath
 			Group="Position"
 			InitialValue="0"
 			Type="Integer"
+		#tag EndViewProperty
+		#tag ViewProperty
+			Name="mHasOwnership"
+			Group="Behavior"
+			Type="Boolean"
 		#tag EndViewProperty
 		#tag ViewProperty
 			Name="Name"
