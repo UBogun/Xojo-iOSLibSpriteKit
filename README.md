@@ -1,2 +1,4 @@
 # Xojo-iOSLibWithSpriteKit
-A temporary hidden extension to iOSLib with many SpriteKit methods &amp; objects included
+An extension to iOSLib: iOSLibSpriteKit.  
+**Important**: _You need to copy the iOSLib folder from https://github.com/UBogun/Xojo-iosLib into this project. It depends on it!_  
+Please see the Wiki for documentation and examples.
