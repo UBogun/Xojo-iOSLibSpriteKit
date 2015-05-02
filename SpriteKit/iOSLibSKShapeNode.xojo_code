@@ -424,11 +424,6 @@ Inherits iOSLibSKNode
 
 	#tag ViewBehavior
 		#tag ViewProperty
-			Name="Alpha"
-			Group="Behavior"
-			Type="Double"
-		#tag EndViewProperty
-		#tag ViewProperty
 			Name="AntiAliased"
 			Group="Behavior"
 			Type="Boolean"

@@ -224,6 +224,11 @@ Inherits ioslibobject
 			Name="FilteringMode"
 			Group="Behavior"
 			Type="SKTextureFilteringMode"
+			EditorType="Enum"
+			#tag EnumValues
+				"0 - Nearest"
+				"1 - Linear"
+			#tag EndEnumValues
 		#tag EndViewProperty
 		#tag ViewProperty
 			Name="HasOwnership"

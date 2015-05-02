@@ -146,14 +146,21 @@ Begin iosView CALayerAnimateView
       Width           =   143.0
    End
    Begin iOSLibPicker iOSLibPicker1
+      AccessibilityHint=   ""
+      AccessibilityLabel=   ""
       AutoLayout      =   iOSLibPicker1, 4, Label1, 3, False, +1.00, 2, 1, -*kStdControlGapV, 
       AutoLayout      =   iOSLibPicker1, 8, , 0, False, +1.00, 1, 1, 146, 
       AutoLayout      =   iOSLibPicker1, 1, <Parent>, 1, False, +1.00, 1, 1, 0, 
       AutoLayout      =   iOSLibPicker1, 7, , 0, False, +1.00, 1, 1, 320, 
       Height          =   146.0
-      Left            =   0.0
+      Left            =   0
       LockedInPosition=   False
-      Top             =   198.0
+      NumberOfComponents=   0
+      Scope           =   0
+      SelectedColumn  =   0
+      SelectionText   =   ""
+      Top             =   198
+      Visible         =   True
       Width           =   320.0
    End
    Begin iOSLabel Label1
@@ -263,11 +270,11 @@ Begin iosView CALayerAnimateView
    Begin iOSTextField YField
       AccessibilityHint=   ""
       AccessibilityLabel=   ""
-      AutoLayout      =   YField, 8, , 0, True, +1.00, 1, 1, 31, 
-      AutoLayout      =   YField, 7, , 0, False, +1.00, 1, 1, 82, 
-      AutoLayout      =   YField, 3, XField, 3, False, +1.00, 1, 1, 0, 
       AutoLayout      =   YField, 9, ImageView1, 9, False, +1.00, 2, 1, 0, 
+      AutoLayout      =   YField, 8, , 0, True, +1.00, 1, 1, 31, 
       AutoLayout      =   YField, 1, <Parent>, 1, False, +1.00, 1, 1, 119, 
+      AutoLayout      =   YField, 3, XField, 3, False, +1.00, 1, 1, 0, 
+      AutoLayout      =   YField, 7, , 0, False, +1.00, 1, 1, 82, 
       Enabled         =   True
       Height          =   31.0
       KeyboardType    =   "0"
@@ -288,11 +295,11 @@ Begin iosView CALayerAnimateView
    Begin iOSTextField ZField
       AccessibilityHint=   ""
       AccessibilityLabel=   ""
-      AutoLayout      =   ZField, 1, <Parent>, 1, False, +1.00, 1, 1, 218, 
-      AutoLayout      =   ZField, 7, , 0, False, +1.00, 1, 1, 82, 
-      AutoLayout      =   ZField, 3, XField, 3, False, +1.00, 1, 1, 0, 
       AutoLayout      =   ZField, 8, , 0, True, +1.00, 1, 1, 31, 
+      AutoLayout      =   ZField, 1, <Parent>, 1, False, +1.00, 1, 1, 218, 
       AutoLayout      =   ZField, 2, <Parent>, 2, False, +1.00, 2, 1, -*kStdGapCtlToViewH, 
+      AutoLayout      =   ZField, 3, XField, 3, False, +1.00, 1, 1, 0, 
+      AutoLayout      =   ZField, 7, , 0, False, +1.00, 1, 1, 82, 
       Enabled         =   True
       Height          =   31.0
       KeyboardType    =   "0"
