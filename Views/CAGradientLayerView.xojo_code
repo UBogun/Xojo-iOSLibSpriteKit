@@ -8,14 +8,18 @@ Begin iosView CAGradientLayerView
    Title           =   "iOSLibCAGradientLayer"
    Top             =   0
    Begin iOSLibGradientView ImageView1
+      AccessibilityHint=   ""
+      AccessibilityLabel=   ""
       AutoLayout      =   ImageView1, 1, <Parent>, 1, False, +1.00, 1, 1, *kStdGapCtlToViewH, 
       AutoLayout      =   ImageView1, 3, TopLayoutGuide, 4, False, +1.00, 1, 1, *kStdControlGapV, 
       AutoLayout      =   ImageView1, 2, <Parent>, 2, False, +1.00, 1, 1, -*kStdGapCtlToViewH, 
       AutoLayout      =   ImageView1, 4, ColorField, 3, False, +1.00, 2, 1, -20, 
       Height          =   248.0
-      Left            =   20.0
+      Left            =   20
       LockedInPosition=   False
-      Top             =   73.0
+      Scope           =   0
+      Top             =   73
+      Visible         =   True
       Width           =   280.0
    End
    Begin iOSTextField ColorField

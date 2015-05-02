@@ -1,6 +1,18 @@
 #tag Class
 Protected Class iOSLibSKTextureAtlas
 Inherits ioslibobject
+	#tag Method, Flags = &h21
+		Private Shared Sub ClassCompletionBlock()
+		  
+		End Sub
+	#tag EndMethod
+
+	#tag Method, Flags = &h21
+		Private Sub CompletionBlock()
+		  if self <> nil then RaiseEvent TextureAtlasLoaded
+		End Sub
+	#tag EndMethod
+
 	#tag Method, Flags = &h1021
 		Private Sub Constructor()
 		  
@@ -25,11 +37,33 @@ Inherits ioslibobject
 	#tag EndMethod
 
 	#tag Method, Flags = &h0
+		Sub Preload()
+		  Declare sub preload lib SpriteKit selector "preloadWithCompletionHandler:" (id as ptr, completion as ptr)
+		  dim completion as new iosblock (AddressOf CompletionBlock)
+		  preload id, completion.Handle
+		End Sub
+	#tag EndMethod
+
+	#tag Method, Flags = &h0
+		 Shared Sub PreloadTextureAtlases(atlases as ioslibarray)
+		  Declare sub preloadTextureAtlases lib SpriteKit selector "preloadTextureAtlases:withCompletionHandler:" (id as ptr, atlases as ptr, completion as ptr)
+		  dim block as new iOSBlock (AddressOf ClassCompletionBlock)
+		  preloadTextureAtlases ( classptr, atlases.id, block.Handle)
+		  
+		End Sub
+	#tag EndMethod
+
+	#tag Method, Flags = &h0
 		Function textureNamed(TextureName as CFStringRef) As iOSLibSKTexture
 		  Declare function TextureNamed lib SpriteKit selector "textureNamed:" (id as ptr, name as cfstringref) as ptr
 		  return ioslibsktexture.MakeFromPtr (TextureNamed(id, TextureName))
 		End Function
 	#tag EndMethod
+
+
+	#tag Hook, Flags = &h0
+		Event TextureAtlasLoaded()
+	#tag EndHook
 
 
 	#tag ComputedProperty, Flags = &h1

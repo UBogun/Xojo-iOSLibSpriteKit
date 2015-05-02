@@ -32,24 +32,28 @@ Begin iosView WebViewerView Implements iOSLibEventReceiver
       Width           =   157.0
    End
    Begin iOSLibHTMLViewerWithInterface HTMLViewer1
+      AccessibilityHint=   ""
+      AccessibilityLabel=   ""
       AutoLayout      =   HTMLViewer1, 3, AirSwitch, 4, False, +1.00, 2, 1, 20, 
       AutoLayout      =   HTMLViewer1, 4, BottomLayoutGuide, 4, False, +1.00, 1, 1, -*kStdControlGapV, 
       AutoLayout      =   HTMLViewer1, 2, <Parent>, 2, False, +1.00, 2, 1, 0, 
       AutoLayout      =   HTMLViewer1, 1, <Parent>, 1, False, +1.00, 1, 1, 0, 
       Height          =   241.0
-      Left            =   0.0
+      Left            =   0
       LockedInPosition=   False
-      Top             =   231.0
+      Scope           =   0
+      Top             =   231
+      Visible         =   True
       Width           =   320.0
    End
    Begin iOSButton GoButton
       AccessibilityHint=   ""
       AccessibilityLabel=   ""
-      AutoLayout      =   GoButton, 2, StopButton, 1, False, +1.00, 2, 1, -*kStdControlGapH, 
-      AutoLayout      =   GoButton, 3, TextField1, 3, False, +1.00, 1, 1, 0, 
-      AutoLayout      =   GoButton, 8, , 0, False, +1.00, 1, 1, 30, 
       AutoLayout      =   GoButton, 1, TextField1, 2, False, +1.00, 1, 1, *kStdControlGapH, 
+      AutoLayout      =   GoButton, 2, StopButton, 1, False, +1.00, 2, 1, -*kStdControlGapH, 
       AutoLayout      =   GoButton, 7, , 0, False, +1.00, 1, 1, 53, 
+      AutoLayout      =   GoButton, 8, , 0, False, +1.00, 1, 1, 30, 
+      AutoLayout      =   GoButton, 3, TextField1, 3, False, +1.00, 1, 1, 0, 
       Caption         =   "Goto"
       Enabled         =   True
       Height          =   30.0

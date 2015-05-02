@@ -208,11 +208,6 @@ Inherits iOSLibSKNode
 
 	#tag ViewBehavior
 		#tag ViewProperty
-			Name="Alpha"
-			Group="Behavior"
-			Type="Double"
-		#tag EndViewProperty
-		#tag ViewProperty
 			Name="BlendMode"
 			Group="Behavior"
 			Type="SKBlendMode"

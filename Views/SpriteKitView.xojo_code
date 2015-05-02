@@ -8,14 +8,30 @@ Begin iosView SpriteKitView
    Title           =   ""
    Top             =   0
    Begin ioslibskviewer ImageView1
+      AccessibilityHint=   ""
+      AccessibilityLabel=   ""
+      AllowsTransparency=   False
+      Asynchronous    =   False
       AutoLayout      =   ImageView1, 1, <Parent>, 1, False, +1.00, 1, 1, 0, 
       AutoLayout      =   ImageView1, 3, TopLayoutGuide, 4, False, +1.00, 1, 1, *kStdControlGapV, 
       AutoLayout      =   ImageView1, 2, <Parent>, 2, False, +1.00, 1, 1, 0, 
       AutoLayout      =   ImageView1, 4, BottomLayoutGuide, 3, False, +1.00, 1, 1, 0, 
+      FrameInterval   =   0
       Height          =   407.0
-      Left            =   0.0
+      IgnoresSiblingOrder=   False
+      Left            =   0
       LockedInPosition=   False
-      Top             =   73.0
+      Paused          =   False
+      Scope           =   0
+      ShouldCullNonVisibleNodes=   False
+      ShowsDrawCount  =   False
+      ShowsFields     =   False
+      ShowsFPS        =   False
+      ShowsNodeCount  =   False
+      ShowsPhysics    =   False
+      ShowsQuadCount  =   False
+      Top             =   73
+      Visible         =   True
       Width           =   320.0
    End
 End
@@ -28,6 +44,7 @@ End
 		  
 		  button = iOSToolButton.NewBordered("Intro")
 		  Toolbar.Add(button)
+		  
 		  
 		  button = iOSToolButton.NewBordered("SpaceShooter")
 		  Toolbar.Add(button)
@@ -101,7 +118,7 @@ End
 		          
 		          dim fightervelocity as double = ImageView1.Width / 3.5
 		          // dim movedifference as nspoint = nspoint (location.x - bear.Position.x, location.y - bear.position.y)
-		          dim movedifference as nspoint = location.VectorSubtract (Enemy.Position)
+		          dim movedifference as nspoint = location.Vector_Subtract (Enemy.Position)
 		          dim distance as double = sqrt (movedifference.x * movedifference.x + movedifference.y * movedifference.y)
 		          dim duration as double = distance / fightervelocity
 		          
@@ -271,13 +288,20 @@ End
 	#tag EndMethod
 
 	#tag Method, Flags = &h21
+		Private Sub MoveEnded()
+		  dim bear as iOSLibSKNode = WalkScene.ChildNode("bear") // retrieve our sprite
+		  bear.RemoveActionForKey "WalkingBear"
+		End Sub
+	#tag EndMethod
+
+	#tag Method, Flags = &h21
 		Private Sub ProcessSpaceShooterTouch(touchset as ioslibset, asnevent as iOSLibEvent)
-		  dim touch as iOSLibsktouch = ioslibsktouch.MakeFromPtr (touchset.AllObjects.PtrAtIndex(0)) // get the first touch item of the array
+		  dim touch as ioslibsktouch = ioslibsktouch.MakeFromPtr (touchset.AllObjects.PtrAtIndex(0)) // get the first touch item of the array
 		  dim location as NSPoint = touch.LocationInNode (SpaceShooterScene) // and convert its point to view points
 		  
 		  if Location.y > FighterNormal.Frame.Size_.height * 6 then location.y = FighterNormal.Frame.Size_.height * 6 // limit the y position, don't get too close to the upper bounds
 		  dim FighterVelocity as double = ImageView1.Width / FighterSpeed // calculate the speed, standardly fighter takes 2 secons to cross the screen width
-		  dim movedifference as nspoint = location.VectorSubtract( FighterNormal.Position)
+		  dim movedifference as nspoint = location.Vector_Subtract( FighterNormal.Position)
 		  dim distance as double = sqrt (movedifference.x * movedifference.x + movedifference.y * movedifference.y)
 		  dim duration as double = distance / FighterVelocity
 		  //
@@ -365,7 +389,7 @@ End
 		  if SpaceShooterScene = nil then
 		    SpaceShooterScene = new iOSLibSKSceneWithInterface (ImageView1.View.frame.Size_ , ImageView1) // Dim a new Scene the size of the view
 		    SpaceShooterScene.name = "SpaceShooter" //and give it a name..
-		    SpaceShooterScene.BackgroundColor =  new ioslibcolor(&c22222222)
+		    
 		    // SpaceShooterScene.PhysicsBody = iOSLibSKPhysicsBody. (ImageView1.view.Frame) // add a border in case we will change the movement to MotionManager
 		    // SpaceShooterScene.PhysicsBody.CategoryBitMask = 0
 		    
@@ -403,85 +427,6 @@ End
 		  // bear.RunActionWithKey iOSLibSKAction.RepeatAction (myanimation), "WalkingBear"
 		End Sub
 	#tag EndMethod
-
-
-	#tag Note, Name = Credits
-		
-		SpaceShooter:
-		---
-		
-		
-		
-		Space Shooter graphics by Kenney Vleugels (www.kenney.nl)
-		
-		
-		
-		You may use these graphics in personal and commercial projects.
-		
-		Credit (www.kenney.nl) would be nice but is not mandatory.
-		
-		
-		
-		--
-		
-		Explosions:
-		
-		License (http://creativecommons.org/licenses/by/3.0/)
-		
-		
-		
-		You are free:
-		
-		
-		
-		* to Share ó to copy, distribute and transmit the work
-		
-		* to Remix ó to adapt the work
-		
-		
-		
-		Under the following conditions:
-		
-		
-		
-		* Attribution ó You must attribute the work in the manner specified by the author or licensor (but not in any way that suggests that they endorse you or your use of the work).
-		
-		
-		
-		
-		
-		ATTRIBUTION INSTRUCTIONS:
-		
-		
-		
-		Include my name "Ville Seppanen" in the application/game where the creators/contributors are listed.
-		
-		
-		
-		Optional:
-		
-		
-		
-		- Leave a link to your project on the opengameart.org download page as a comment (get free exposure!)
-		
-		- Email or message me with information regarding your app or game if you want it to appear on my Facebook (get even more free exposure!)
-		
-		- Link to my portfolio (villeseppanen.com) if you are a cool person ;)
-		
-		
-		
-		Thank you!
-		
-		
-		
-		ville.seppanen@gmail.com
-		
-		
-		__Sounds __
-		
-		both are from opengameart.com too,  but I cannot find their creator bor their package right now. Will add credits once I found them, sorry!
-		
-	#tag EndNote
 
 
 	#tag Property, Flags = &h21
@@ -564,6 +509,10 @@ End
 		Private TextureRightaction As iOSLibSKAction
 	#tag EndProperty
 
+	#tag Property, Flags = &h21
+		Private WalkScene As iOSLibSKSceneWithInterface
+	#tag EndProperty
+
 
 	#tag Constant, Name = BackgroundCategory, Type = Double, Dynamic = False, Default = \"32", Scope = Private
 	#tag EndConstant
@@ -618,7 +567,7 @@ End
 	#tag EndEvent
 	#tag Event
 		Sub LayoutSubviews()
-		  if me.Scene = nil then ShootWorld
+		  if WalkScene = nil then ShootWorld
 		End Sub
 	#tag EndEvent
 	#tag Event
