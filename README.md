@@ -1,4 +1,4 @@
 # Xojo-iOSLibSpriteKit
 An extension to iOSLib: iOSLibSpriteKit.  
-**Important**: _You need to copy the iOSLib folder from https://github.com/UBogun/Xojo-iosLib into this project. It depends on it!_  
+There had been problems re-importing iOSLib from the other project source. Therefore iOSLib is now included.
 Please see the Wiki for documentation and examples.
