@@ -275,6 +275,55 @@ Inherits iOSLibObject
 	#tag EndMethod
 
 	#tag Method, Flags = &h0
+		 Shared Function ReachToNodeWithDuration(TargetNode as ioslibsknode, RootNode As iosLibskNode, Duration As Double) As iOSLibSKAction
+		  if iOS8Avaliable then
+		    dim result as iOSLibSKAction
+		    Declare function ReachToNodeWithDuration lib SpriteKit selector "reachToNode:rootNode:duration:" (id as ptr, Targetnode as Ptr, rootnode as ptr, duration as Double) as ptr
+		    result = new iOSLibSKAction (ReachToNodeWithDuration (classptr, TargetNode.id, RootNode.id, Duration))
+		    result.RetainClassObject
+		    return result
+		  end if
+		  
+		End Function
+	#tag EndMethod
+
+	#tag Method, Flags = &h0
+		 Shared Function ReachToNodeWithVelocity(TargetNode as ioslibsknode, RootNode As iosLibskNode, Velocity As Double) As iOSLibSKAction
+		  if iOS8Avaliable then
+		    
+		    dim result as iOSLibSKAction
+		    #if Target64Bit
+		      Declare function ReachToNodeWithVelocity lib SpriteKit selector "reachToNode:rootNode:velocity:" (id as ptr, Targetnode as Ptr, rootnode as ptr, velecoity as Double) as ptr
+		    #elseif Target32Bit
+		      Declare function ReachToNodeWithVelocity lib SpriteKit selector "reachToNode:rootNode:velocity:" (id as ptr, Targetnode as Ptr, rootnode as ptr, velecoity as Single) as ptr
+		    #endif
+		    result = new iOSLibSKAction (ReachToNodeWithVelocity (classptr, TargetNode.id, RootNode.id, velocity))
+		    result.RetainClassObject
+		    return result
+		  end if
+		  
+		End Function
+	#tag EndMethod
+
+	#tag Method, Flags = &h0
+		 Shared Function ReachToPoint(aPoint as NSPoint, RootNode As iosLibskNode, Velocity As Double) As iOSLibSKAction
+		  if iOS8Avaliable then
+		    dim result as iOSLibSKAction
+		    #if Target64Bit
+		      Declare function reachToRNV lib SpriteKit selector "reachTo:rootNode:velocity:"(id as ptr, aPoint as NSPoint, rootnode as ptr, velecoity as Double) as ptr
+		      result = new iOSLibSKAction (reachToRNV (classptr, aPoint, RootNode.id, velocity))
+		    #elseif Target32Bit
+		      Declare function reachToRNV lib SpriteKit selector "reachTo:rootNode:velocity:"(id as ptr, aPoint as NSPoint32Bit, rootnode as ptr, velecoity as single) as ptr
+		      result = new iOSLibSKAction (reachToRNV (classptr, aPoint.toNSPoint32, RootNode.id, velocity))
+		    #endif
+		    result.RetainClassObject
+		    return result
+		  end if
+		  
+		End Function
+	#tag EndMethod
+
+	#tag Method, Flags = &h0
 		 Shared Function RemoveFromParent() As iOSLibSKAction
 		  Declare function removeFromParent lib SpriteKit selector "removeFromParent" (id as ptr) as ptr
 		  dim result as new iOSLibSKAction (removeFromParent (classptr))
@@ -625,6 +674,16 @@ Inherits iOSLibObject
 			End Set
 		#tag EndSetter
 		Duration As Double
+	#tag EndComputedProperty
+
+	#tag ComputedProperty, Flags = &h21
+		#tag Getter
+			Get
+			  static miOS8available as boolean = ObjectiveCRuntime.class_respondsToSelector (classptr, NSSelectorFromString("reachTo:rootNode:velocity:")
+			  return miOS8available
+			End Get
+		#tag EndGetter
+		Private Shared iOS8Avaliable As Boolean
 	#tag EndComputedProperty
 
 	#tag ComputedProperty, Flags = &h0
