@@ -12,10 +12,10 @@ Begin iosView SpriteKitView
       AccessibilityLabel=   ""
       AllowsTransparency=   False
       Asynchronous    =   False
-      AutoLayout      =   ImageView1, 1, <Parent>, 1, False, +1.00, 1, 1, 0, 
-      AutoLayout      =   ImageView1, 3, TopLayoutGuide, 4, False, +1.00, 1, 1, *kStdControlGapV, 
-      AutoLayout      =   ImageView1, 2, <Parent>, 2, False, +1.00, 1, 1, 0, 
       AutoLayout      =   ImageView1, 4, BottomLayoutGuide, 3, False, +1.00, 1, 1, 0, 
+      AutoLayout      =   ImageView1, 3, TopLayoutGuide, 4, False, +1.00, 1, 1, *kStdControlGapV, 
+      AutoLayout      =   ImageView1, 1, <Parent>, 1, False, +1.00, 1, 1, 0, 
+      AutoLayout      =   ImageView1, 2, <Parent>, 2, False, +1.00, 1, 1, 0, 
       FrameInterval   =   0
       Height          =   407.0
       IgnoresSiblingOrder=   False
@@ -391,8 +391,11 @@ End
 		    SpaceShooterScene.BackgroundColor =  new ioslibcolor(&c22222222)
 =======
 		    SpaceShooterScene.name = "SpaceShooter" //and give it a name..
+<<<<<<< HEAD
 		    
 >>>>>>> I am really sorry – SourceControl brought some interference and after reimporting iOSLib SpriteKit did not want to show anything anymore. So here a re-up with iOSLib bundled – seems to be the best idea for now.
+=======
+>>>>>>> Closed a few gaps: SKConstraints, SKReachConstraints and SKRange added (also as properties where they were missing).
 		    // SpaceShooterScene.PhysicsBody = iOSLibSKPhysicsBody. (ImageView1.view.Frame) // add a border in case we will change the movement to MotionManager
 		    // SpaceShooterScene.PhysicsBody.CategoryBitMask = 0
 		    

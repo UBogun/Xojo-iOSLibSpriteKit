@@ -16,6 +16,32 @@ Inherits iOSLibResponder
 	#tag EndMethod
 
 	#tag Method, Flags = &h0
+		Sub AddConstraint(Constraint as iOSLibSKConstraint)
+		  dim resultarray as iOSLibMutableArray
+		  if Constraints = nil then
+		    resultarray = new iOSLibMutableArray (1)
+		  else
+		    resultarray = new iOSLibMutableArray (Constraints)
+		  end if
+		  resultarray.Addobject Constraint
+		  Constraints = resultarray
+		End Sub
+	#tag EndMethod
+
+	#tag Method, Flags = &h0
+		Sub AddReachConstraint(Constraint as iOSLibSKReachConstraint)
+		  dim resultarray as iOSLibMutableArray
+		  if reachConstraints = nil then
+		    resultarray = new iOSLibMutableArray (1)
+		  else
+		    resultarray = new iOSLibMutableArray (reachConstraints)
+		  end if
+		  resultarray.Addobject Constraint
+		  ReachConstraints = resultarray
+		End Sub
+	#tag EndMethod
+
+	#tag Method, Flags = &h0
 		Function ChildNode(Name as text) As iOSLibSKNode
 		  Declare Function childNodeWithName lib SpriteKit selector "childNodeWithName:" (id as ptr, name as CFStringRef) as Ptr
 		  dim result as ptr = childNodeWithName (id, name)
@@ -232,9 +258,25 @@ Inherits iOSLibResponder
 	#tag EndMethod
 
 	#tag Method, Flags = &h0
+		Sub RemoveConstraint(Index as UInteger)
+		  dim resultarray as new iOSLibMutableArray (Constraints)
+		  resultarray.RemoveObjectAtIndex (index)
+		  Constraints = resultarray
+		End Sub
+	#tag EndMethod
+
+	#tag Method, Flags = &h0
 		Sub RemoveFromParent()
 		  Declare sub removeFromParent lib SpriteKit selector "removeFromParent" (id as ptr)
 		  removeFromParent id
+		End Sub
+	#tag EndMethod
+
+	#tag Method, Flags = &h0
+		Sub RemoveReachConstraint(Index as UInteger)
+		  dim resultarray as new iOSLibMutableArray (ReachConstraints)
+		  resultarray.RemoveObjectAtIndex (index)
+		  ReachConstraints = resultarray
 		End Sub
 	#tag EndMethod
 
@@ -397,6 +439,24 @@ Inherits iOSLibResponder
 	#tag ComputedProperty, Flags = &h0
 		#tag Getter
 			Get
+			  if iOSLibSKConstraint.ClassAvailable then
+			    declare Function constraints lib SpriteKit selector "constraints" (id as ptr) as ptr
+			    Return iOSLibArray.MakeFromPtr (constraints(id))
+			  end if
+			End Get
+		#tag EndGetter
+		#tag Setter
+			Set
+			  declare sub setConstraints lib SpriteKit selector "setConstraints:" (id as ptr, value as ptr)
+			  setConstraints id, value.id
+			End Set
+		#tag EndSetter
+		Constraints As iOSLibArray
+	#tag EndComputedProperty
+
+	#tag ComputedProperty, Flags = &h0
+		#tag Getter
+			Get
 			  declare function hasActions lib SpriteKit selector "hasActions" (id as ptr) as Boolean
 			  return hasActions (id)
 			  
@@ -498,6 +558,24 @@ Inherits iOSLibResponder
 			End Set
 		#tag EndSetter
 		Position As NSPoint
+	#tag EndComputedProperty
+
+	#tag ComputedProperty, Flags = &h0
+		#tag Getter
+			Get
+			  if iOSLibSKReachConstraint.ClassAvailable then
+			    declare Function reachConstraints lib SpriteKit selector "reachConstraints" (id as ptr) as ptr
+			    Return iOSLibArray.MakeFromPtr (reachConstraints(id))
+			  end if
+			End Get
+		#tag EndGetter
+		#tag Setter
+			Set
+			  declare sub setReachConstraints lib SpriteKit selector "setReachConstraints:" (id as ptr, value as ptr)
+			  setReachConstraints id, value.id
+			End Set
+		#tag EndSetter
+		ReachConstraints As iOSLibArray
 	#tag EndComputedProperty
 
 	#tag ComputedProperty, Flags = &h0

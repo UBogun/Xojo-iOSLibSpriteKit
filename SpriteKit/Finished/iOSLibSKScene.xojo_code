@@ -1,6 +1,18 @@
 #tag Class
 Protected Class iOSLibSKScene
 Inherits iOSLibSKEffectNode
+	#tag Method, Flags = &h0
+		Sub AnchorPoint(assigns apoint as point)
+		  AnchorPoint = apoint.toNSPoint
+		End Sub
+	#tag EndMethod
+
+	#tag Method, Flags = &h0
+		Sub BackgorundColor(assigns aColor as color)
+		  BackgroundColor = new iOSLibColor(aColor)
+		End Sub
+	#tag EndMethod
+
 	#tag Method, Flags = &h1021
 		Private Sub Constructor()
 		  
@@ -208,6 +220,12 @@ Inherits iOSLibSKEffectNode
 		 Shared Function MakeFromPtr(aPtr as Ptr) As iOSLibSKScene
 		  Return if (aptr = NIL, NIL, new iOSLibSKScene (aptr))
 		End Function
+	#tag EndMethod
+
+	#tag Method, Flags = &h0
+		Sub Size(assigns Asize as size)
+		  Size = asize.tonssize
+		End Sub
 	#tag EndMethod
 
 
