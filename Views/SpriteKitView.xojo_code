@@ -392,10 +392,13 @@ End
 =======
 		    SpaceShooterScene.name = "SpaceShooter" //and give it a name..
 <<<<<<< HEAD
+<<<<<<< HEAD
 		    
 >>>>>>> I am really sorry – SourceControl brought some interference and after reimporting iOSLib SpriteKit did not want to show anything anymore. So here a re-up with iOSLib bundled – seems to be the best idea for now.
 =======
 >>>>>>> Closed a few gaps: SKConstraints, SKReachConstraints and SKRange added (also as properties where they were missing).
+=======
+>>>>>>> Added SKConstraints, SKReachConstraints and SKRange
 		    // SpaceShooterScene.PhysicsBody = iOSLibSKPhysicsBody. (ImageView1.view.Frame) // add a border in case we will change the movement to MotionManager
 		    // SpaceShooterScene.PhysicsBody.CategoryBitMask = 0
 		    
