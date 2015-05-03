@@ -10,13 +10,13 @@ Begin iosView BlockAnimateView
    Begin iOSImageView ImageView1
       AccessibilityHint=   ""
       AccessibilityLabel=   ""
-      AutoLayout      =   ImageView1, 1, <Parent>, 1, False, +1.00, 1, 1, *kStdGapCtlToViewH, 
-      AutoLayout      =   ImageView1, 7, , 0, False, +1.00, 1, 1, 160, 
-      AutoLayout      =   ImageView1, 3, <Parent>, 3, False, +1.00, 1, 1, 39, 
       AutoLayout      =   ImageView1, 8, , 0, False, +1.00, 1, 1, 160, 
+      AutoLayout      =   ImageView1, 7, , 0, False, +1.00, 1, 1, 160, 
+      AutoLayout      =   ImageView1, 1, <Parent>, 1, False, +1.00, 1, 1, *kStdGapCtlToViewH, 
+      AutoLayout      =   ImageView1, 3, <Parent>, 3, False, +1.00, 1, 1, 39, 
       ContentMode     =   "1"
       Height          =   160.0
-      Image           =   "547002367"
+      Image           =   "537004031"
       Left            =   20
       LockedInPosition=   False
       Scope           =   0
@@ -27,10 +27,10 @@ Begin iosView BlockAnimateView
    Begin iostable Table1
       AccessibilityHint=   ""
       AccessibilityLabel=   ""
-      AutoLayout      =   Table1, 7, , 0, False, +1.00, 1, 1, 320, 
-      AutoLayout      =   Table1, 8, , 0, False, +1.00, 1, 1, 177, 
-      AutoLayout      =   Table1, 3, <Parent>, 3, False, +1.00, 1, 1, 253, 
       AutoLayout      =   Table1, 1, <Parent>, 1, False, +1.00, 1, 1, 0, 
+      AutoLayout      =   Table1, 8, , 0, False, +1.00, 1, 1, 177, 
+      AutoLayout      =   Table1, 7, , 0, False, +1.00, 1, 1, 320, 
+      AutoLayout      =   Table1, 3, <Parent>, 3, False, +1.00, 1, 1, 253, 
       Format          =   "0"
       Height          =   177.0
       Left            =   0
@@ -45,13 +45,13 @@ Begin iosView BlockAnimateView
    Begin iOSImageView ImageView2
       AccessibilityHint=   ""
       AccessibilityLabel=   ""
-      AutoLayout      =   ImageView2, 2, <Parent>, 2, False, +1.00, 1, 1, 0, 
-      AutoLayout      =   ImageView2, 7, , 0, False, +1.00, 1, 1, 160, 
-      AutoLayout      =   ImageView2, 3, <Parent>, 3, False, +1.00, 1, 1, 199, 
       AutoLayout      =   ImageView2, 8, , 0, False, +1.00, 1, 1, 160, 
+      AutoLayout      =   ImageView2, 7, , 0, False, +1.00, 1, 1, 160, 
+      AutoLayout      =   ImageView2, 2, <Parent>, 2, False, +1.00, 1, 1, 0, 
+      AutoLayout      =   ImageView2, 3, <Parent>, 3, False, +1.00, 1, 1, 199, 
       ContentMode     =   "1"
       Height          =   160.0
-      Image           =   "588568575"
+      Image           =   "1702440959"
       Left            =   160
       LockedInPosition=   False
       Scope           =   0
@@ -62,13 +62,13 @@ Begin iosView BlockAnimateView
    Begin iOSImageView ImageView3
       AccessibilityHint=   ""
       AccessibilityLabel=   ""
-      AutoLayout      =   ImageView3, 1, <Parent>, 1, False, +1.00, 1, 1, 222, 
-      AutoLayout      =   ImageView3, 7, , 0, False, +1.00, 1, 1, 117, 
-      AutoLayout      =   ImageView3, 3, <Parent>, 3, False, +1.00, 1, 1, -16, 
       AutoLayout      =   ImageView3, 8, , 0, False, +1.00, 1, 1, 107, 
+      AutoLayout      =   ImageView3, 7, , 0, False, +1.00, 1, 1, 117, 
+      AutoLayout      =   ImageView3, 1, <Parent>, 1, False, +1.00, 1, 1, 222, 
+      AutoLayout      =   ImageView3, 3, <Parent>, 3, False, +1.00, 1, 1, -16, 
       ContentMode     =   "1"
       Height          =   107.0
-      Image           =   "588568575"
+      Image           =   "588933119"
       Left            =   222
       LockedInPosition=   False
       Scope           =   0
