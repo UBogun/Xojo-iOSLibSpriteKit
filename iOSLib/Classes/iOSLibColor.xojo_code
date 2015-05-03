@@ -62,6 +62,12 @@ Inherits iosLibObject
 		End Function
 	#tag EndMethod
 
+	#tag Method, Flags = &h1
+		Protected Function Operator_Convert(acolor as Color) As iOSLibColor
+		  return new iOSLibColor(acolor)
+		End Function
+	#tag EndMethod
+
 
 	#tag ComputedProperty, Flags = &h0
 		#tag Getter

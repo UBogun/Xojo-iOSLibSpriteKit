@@ -14,6 +14,19 @@ Inherits iOSLibMutableObjectInterface
 		End Sub
 	#tag EndMethod
 
+	#tag Method, Flags = &h1000
+		Sub Constructor(anArray as iOSLibArray)
+		  Declare function arrayWithArray lib Foundation selector "arrayWithArray:" (id as ptr, anarray as ptr) as ptr
+		  // Calling the overridden superclass constructor.
+		  // Note that this may need modifications if there are multiple constructor choices.
+		  // Possible constructor calls:
+		  // Constructor() -- From iOSLibObject
+		  // Constructor(AnId as Ptr) -- From iOSLibObject
+		  Super.Constructor (arrayWithArray(classptr, anArray.id))
+		  RetainClassObject
+		End Sub
+	#tag EndMethod
+
 	#tag Method, Flags = &h0
 		Function ContainsObject(anObject as iOSLibGeneralObject) As Boolean
 		  Declare function containsObject lib Foundation selector "containsObject:" (id as ptr, anObject as ptr) as Boolean

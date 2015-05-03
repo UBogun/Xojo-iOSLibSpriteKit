@@ -12,10 +12,10 @@ Begin iosView SpriteKitView
       AccessibilityLabel=   ""
       AllowsTransparency=   False
       Asynchronous    =   False
-      AutoLayout      =   ImageView1, 1, <Parent>, 1, False, +1.00, 1, 1, 0, 
-      AutoLayout      =   ImageView1, 3, TopLayoutGuide, 4, False, +1.00, 1, 1, *kStdControlGapV, 
-      AutoLayout      =   ImageView1, 2, <Parent>, 2, False, +1.00, 1, 1, 0, 
       AutoLayout      =   ImageView1, 4, BottomLayoutGuide, 3, False, +1.00, 1, 1, 0, 
+      AutoLayout      =   ImageView1, 3, TopLayoutGuide, 4, False, +1.00, 1, 1, *kStdControlGapV, 
+      AutoLayout      =   ImageView1, 1, <Parent>, 1, False, +1.00, 1, 1, 0, 
+      AutoLayout      =   ImageView1, 2, <Parent>, 2, False, +1.00, 1, 1, 0, 
       FrameInterval   =   0
       Height          =   407.0
       IgnoresSiblingOrder=   False
@@ -389,7 +389,6 @@ End
 		  if SpaceShooterScene = nil then
 		    SpaceShooterScene = new iOSLibSKSceneWithInterface (ImageView1.View.frame.Size_ , ImageView1) // Dim a new Scene the size of the view
 		    SpaceShooterScene.name = "SpaceShooter" //and give it a name..
-		    
 		    // SpaceShooterScene.PhysicsBody = iOSLibSKPhysicsBody. (ImageView1.view.Frame) // add a border in case we will change the movement to MotionManager
 		    // SpaceShooterScene.PhysicsBody.CategoryBitMask = 0
 		    

@@ -247,6 +247,15 @@ Implements iOSLibGeneralObject
 	#tag ComputedProperty, Flags = &h0
 		#tag Getter
 			Get
+			  return (ClassPtr <> nil)
+			End Get
+		#tag EndGetter
+		Shared ClassAvailable As Boolean
+	#tag EndComputedProperty
+
+	#tag ComputedProperty, Flags = &h0
+		#tag Getter
+			Get
 			  return ObjectiveCRuntime.class_getName (class_)
 			  
 			End Get

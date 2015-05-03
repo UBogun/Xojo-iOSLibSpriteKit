@@ -91,6 +91,13 @@ Inherits iOSLibArray
 		End Function
 	#tag EndMethod
 
+	#tag Method, Flags = &h0
+		Sub RemoveObjectAtIndex(Index as uinteger)
+		  Declare sub removeObjectAtIndex lib Foundation selector "removeObjectAtIndex:" (id as ptr, index as uinteger)
+		  removeObjectAtIndex id, index
+		End Sub
+	#tag EndMethod
+
 
 	#tag ComputedProperty, Flags = &h1
 		#tag Getter
