@@ -12,10 +12,10 @@ Begin iosView SpriteKitView
       AccessibilityLabel=   ""
       AllowsTransparency=   False
       Asynchronous    =   False
-      AutoLayout      =   ImageView1, 4, BottomLayoutGuide, 3, False, +1.00, 1, 1, 0, 
-      AutoLayout      =   ImageView1, 3, TopLayoutGuide, 4, False, +1.00, 1, 1, *kStdControlGapV, 
-      AutoLayout      =   ImageView1, 1, <Parent>, 1, False, +1.00, 1, 1, 0, 
       AutoLayout      =   ImageView1, 2, <Parent>, 2, False, +1.00, 1, 1, 0, 
+      AutoLayout      =   ImageView1, 3, TopLayoutGuide, 4, False, +1.00, 1, 1, *kStdControlGapV, 
+      AutoLayout      =   ImageView1, 4, BottomLayoutGuide, 3, False, +1.00, 1, 1, 0, 
+      AutoLayout      =   ImageView1, 1, <Parent>, 1, False, +1.00, 1, 1, 0, 
       FrameInterval   =   0
       Height          =   407.0
       IgnoresSiblingOrder=   False
@@ -64,6 +64,20 @@ End
 
 
 	#tag Method, Flags = &h21
+		Private Sub AddBackgroundStars()
+		  //
+		  // dim bgsprite as new iOSLibSKSpriteNode (new iOSLibSKTexture(new iOSLibImage(bg_parallax_stars)))
+		  // bgsprite.AnchorPoint = NSPoint (0, 0)
+		  // bgsprite.Position = nspoint (0, ImageView1.Height)
+		  // dim myaction as  iOSLibSKAction = iOSLibSKAction.MoveToY (-(bgsprite.Frame.Size_.height)+ ImageView1.Height, BackgroundSpeedScrollDuration)
+		  // SpaceShooterScene.AddChild bgsprite
+		  // dim completion as new iosblock (AddressOf AddBackgroundStars)
+		  // bgsprite.RunActionWithCompletionBlock  myaction, completion
+		  
+		End Sub
+	#tag EndMethod
+
+	#tag Method, Flags = &h21
 		Private Sub analyzeCollision(contact as iOSLibSKPhysicsContact)
 		  // This event is only processed when a Spaceshooter game is running
 		  
@@ -96,24 +110,17 @@ End
 		    dim enemy as iOSLibSKNode = iOSLibSKNode.MakeFromPtr (enemies.PtrAtIndex(q)) // rertieve one
 		    if enemy <> nil then // probably unnecessary, but in any case: Make sure it still exists
 		      if not enemy.ExecutesActions then // is it idle?
-		        dim currentfighter as iOSLibSKnode = SpaceShooterScene.childnode( FighterName) // and then find out where our ship is located
+		        dim currentfighter as iOSLibSKnode = SpaceShooterScene.childnode( "Fighter") // and then find out where our ship is located
 		        if currentfighter <> nil then
-		          dim xpos as Double = currentfighter.Position.x + randomint (-100,100) // don't be too exact.
-		          dim ypos as double = ImageView1.Height - randomint (50, ImageView1.Height/2) // choose a random height
-		          dim location as NSPoint =NSPoint (xpos, ypos) // save this point
+		          dim xpos as Double = currentfighter.Position.x + randomint (-100,100)
+		          dim ypos as double = ImageView1.Height - randomint (50, ImageView1.Height/2)
+		          dim location as NSPoint =NSPoint (xpos, ypos)
 		          
-<<<<<<< HEAD
-		          dim enemyvelocity as double = ImageView1.Width / 3.5
-		          dim movedifference as nspoint = location.VectorSubtract (Enemy.Position)
-		          dim distance as double = movedifference.Magnitude
-		          dim duration as double = distance / enemyvelocity
-=======
 		          dim fightervelocity as double = ImageView1.Width / 3.5
 		          // dim movedifference as nspoint = nspoint (location.x - bear.Position.x, location.y - bear.position.y)
 		          dim movedifference as nspoint = location.Vector_Subtract (Enemy.Position)
 		          dim distance as double = sqrt (movedifference.x * movedifference.x + movedifference.y * movedifference.y)
 		          dim duration as double = distance / fightervelocity
->>>>>>> I am really sorry – SourceControl brought some interference and after reimporting iOSLib SpriteKit did not want to show anything anymore. So here a re-up with iOSLib bundled – seems to be the best idea for now.
 		          
 		          dim wait as iOSLibSKAction = iOSLibSKAction.Wait (randomint (0, 100)/100)
 		          dim moveaction as iOSLibSKAction = iOSLibSKAction.MoveTo (location, duration)
@@ -121,7 +128,7 @@ End
 		          dim block as new iOSBlock (AddressOf Enemy1MoveEnded)
 		          dim doneaction as iOSLibSKAction = iOSLibSKAction.RunBlock (block)
 		          dim moveactionWithdone as iOSLibSKAction = iOSLibSKAction.Sequence (wait, moveaction, doneaction)
-		          enemy.RunActionWithKey (moveactionWithdone,EnemyMovingName)
+		          enemy.RunActionWithKey (moveactionWithdone, "EnemyMoving")
 		        end if
 		      end if
 		    end if
@@ -132,27 +139,27 @@ End
 
 	#tag Method, Flags = &h21
 		Private Sub CreateEnemy()
-		  if SpaceShooterScene.ChildNodes(Enemy1Name).count < MaxEnemies then // don't flood the screen with enemies
+		  if SpaceShooterScene.ChildNodes(Enemy1Name).count < MaxEnemies then
 		    dim NewEnemy as new iOSLibSKSpriteNode (Enemy1Texture)
 		    // NewEnemy.setScale  1/ImageView1.view.ContentScaleFactor // scale it so it matches the display resolution
 		    
-		    dim enemybody as new iOSLibSKPhysicsBody (NewEnemy) // create a physics body
+		    dim enemybody as new iOSLibSKPhysicsBody (NewEnemy.Frame.size_)
 		    
 		    enemybody.CategoryBitMask = EnemyCategory
-		    // enemybody.ContactTestBitMask = FighterCategory or ObjectCategory or BulletCategory
+		    enemybody.ContactTestBitMask = FighterCategory or ObjectCategory or BulletCategory
 		    enemybody.CollisionBitMask = FighterCategory or ObjectCategory or BulletCategory
 		    enemybody.AffectedByGravity = false
 		    NewEnemy.PhysicsBody = enemybody
 		    
-		    NewEnemy.Position = NSPoint (randomint (-20, ImageView1.Width+20), ImageView1.height + 50) // Position it a bit over the view bounds
+		    NewEnemy.Position = NSPoint (randomint (-20, ImageView1.Width+20), ImageView1.height + 50)
 		    NewEnemy.Name = Enemy1Name
-		    SpaceShooterScene.AddChild NewEnemy // make it appear
-		    dim moveaction as iOSLibSKAction = iOSLibSKAction.MoveToY (ImageView1.Height - randomint (100, 250), 2) // and prepare it to move
+		    SpaceShooterScene.AddChild NewEnemy
+		    dim moveaction as iOSLibSKAction = iOSLibSKAction.MoveToY (ImageView1.Height - randomint (100, 250), 2)
 		    
 		    dim block as new iOSBlock (AddressOf Enemy1MoveEnded)
 		    dim doneaction as iOSLibSKAction = iOSLibSKAction.RunBlock (block)
 		    dim moveactionWithdone as iOSLibSKAction = iOSLibSKAction.Sequence (moveaction, doneaction)
-		    NewEnemy.RunActionWithKey (moveactionWithdone, EnemyMovingName)
+		    NewEnemy.RunActionWithKey (moveactionWithdone, "EnemyMoving")
 		  end if
 		  
 		  
@@ -161,7 +168,7 @@ End
 
 	#tag Method, Flags = &h21
 		Private Sub CreateFighter()
-		  FighterNormalTexture = new iOSLibSKTexture(FighterName)  // Set up and store the textures for the fighter
+		  FighterNormalTexture = new iOSLibSKTexture("Fighter")  // Set up and store the textures for the fighter
 		  FighterLeftTexture = new iOSLibSKTexture("FighterLeft")
 		  FighterRightTexture = new iOSLibSKTexture("FighterRight")
 		  FighterDamagedTexture = new iOSLibSKTexture("FighterDamaged")
@@ -172,17 +179,17 @@ End
 		  FighterNormal.BlendMode = iOSLibSKNode.SKBlendMode.Screen
 		  FighterNormal.Position = NSPoint (ImageView1.Width/2, FighterNormal.Frame.Size_.height * 2) // and place it in the middle just a bit above the bottom
 		  
-		  dim FighterBody as new iOSLibSKPhysicsBody (FighterNormal) // now add a rectangular physics body for collision detection
+		  dim FighterBody as new iOSLibSKPhysicsBody (FighterNormal.Frame.Size_) // now add a rectangular physics body for collision detection
 		  FighterBody.CategoryBitMask = FighterCategory // and assing it the category
-		  // FighterBody.ContactTestBitMask = EnemyCategory // Enemies are spaceships and their bullets, only register collisions and contacts with them
+		  FighterBody.ContactTestBitMask = EnemyCategory // Enemies are spaceships and their bullets, only register collisions and contacts with them
 		  // FighterBody.CollisionBitMask = EnemyCategory
-		  // FighterBody.PreciseCollisionDetection = true // and in case the fighter moves fast, be exact
+		  FighterBody.PreciseCollisionDetection = true // and in case the fighter moves fast, be exact
 		  FighterBody.AffectedByGravity = false // we don't need no gravity for fighters
-		  FighterNormal.PhysicsBody = FighterBody // now assigning the phyics body to the SpriteNode
+		  FighterNormal.PhysicsBody = FighterBody // now assining the phyics body
 		  
-		  FighterNormal.Name = FighterName
+		  FighterNormal.Name = "Fighter"
 		  
-		  // now prepare the Bullets
+		  // now create the Bullets
 		  
 		  GreenshotTexture = new iOSLibSKTexture ("GreenShot")
 		  
@@ -223,15 +230,15 @@ End
 
 	#tag Method, Flags = &h21
 		Private Sub EnemyShoot()
-		  dim enemy as iOSLibSKNode = SpaceShooterScene.ChildNode(Enemy1Name)
+		  dim enemy as iOSLibSKNode = SpaceShooterScene.ChildNode("Enemy1")
 		  if not enemy.isnil then
 		    dim Enemybullet as  new iOSLibSKSpriteNode (RedshotTexture)
 		    // Enemybullet.setScale  1/ImageView1.view.ContentScaleFactor // scale it so it matches the display resolution
 		    
-		    dim Redshotbody as new iOSLibSKPhysicsBody (enemybullet)
+		    dim Redshotbody as new iOSLibSKPhysicsBody (enemybullet.Frame.Size_)
 		    Redshotbody.CategoryBitMask = EnemyCategory
 		    Redshotbody.ContactTestBitMask = FighterCategory or ObjectCategory
-		    // Redshotbody.CollisionBitMask = FighterCategory or ObjectCategory
+		    Redshotbody.CollisionBitMask = FighterCategory or ObjectCategory
 		    Redshotbody.AffectedByGravity = false
 		    Redshotbody.PreciseCollisionDetection = true
 		    Enemybullet.PhysicsBody = Redshotbody
@@ -294,21 +301,16 @@ End
 		  
 		  if Location.y > FighterNormal.Frame.Size_.height * 6 then location.y = FighterNormal.Frame.Size_.height * 6 // limit the y position, don't get too close to the upper bounds
 		  dim FighterVelocity as double = ImageView1.Width / FighterSpeed // calculate the speed, standardly fighter takes 2 secons to cross the screen width
-<<<<<<< HEAD
-		  dim movedifference as nspoint = location.VectorSubtract( FighterNormal.Position)
-		  dim distance as double = movedifference.Magnitude
-=======
 		  dim movedifference as nspoint = location.Vector_Subtract( FighterNormal.Position)
 		  dim distance as double = sqrt (movedifference.x * movedifference.x + movedifference.y * movedifference.y)
->>>>>>> I am really sorry – SourceControl brought some interference and after reimporting iOSLib SpriteKit did not want to show anything anymore. So here a re-up with iOSLib bundled – seems to be the best idea for now.
 		  dim duration as double = distance / FighterVelocity
-		  
+		  //
 		  dim textureaction as iOSLibSKAction =  if (movedifference.x <0, TextureLeftAction, if (movedifference.x > 0, TextureRightaction, TextureNormalaction))
 		  dim moveaction as iOSLibSKAction = iOSLibSKAction.MoveTo (location, duration)
 		  dim block as new iOSBlock (AddressOf FighterMoveEnded)
 		  dim doneaction as iOSLibSKAction = iOSLibSKAction.RunBlock (block)
 		  dim moveactionWithdone as iOSLibSKAction = iOSLibSKAction.Sequence (textureaction, moveaction, doneaction)
-		  FighterNormal.RunActionWithKey (moveactionWithdone, FighterMovingName)
+		  FighterNormal.RunActionWithKey (moveactionWithdone, "FighterMoving")
 		  
 		  if touch.TapCount > 1 then FighterShoot
 		End Sub
@@ -386,45 +388,36 @@ End
 		Private Sub Spaceshooter()
 		  if SpaceShooterScene = nil then
 		    SpaceShooterScene = new iOSLibSKSceneWithInterface (ImageView1.View.frame.Size_ , ImageView1) // Dim a new Scene the size of the view
-<<<<<<< HEAD
-		    SpaceShooterScene.name = SpaceShooterName //and give it a name..
-		    SpaceShooterScene.BackgroundColor =  new ioslibcolor(&c22222222)
-=======
 		    SpaceShooterScene.name = "SpaceShooter" //and give it a name..
-<<<<<<< HEAD
-<<<<<<< HEAD
-		    
->>>>>>> I am really sorry – SourceControl brought some interference and after reimporting iOSLib SpriteKit did not want to show anything anymore. So here a re-up with iOSLib bundled – seems to be the best idea for now.
-=======
->>>>>>> Closed a few gaps: SKConstraints, SKReachConstraints and SKRange added (also as properties where they were missing).
-=======
->>>>>>> Added SKConstraints, SKReachConstraints and SKRange
 		    // SpaceShooterScene.PhysicsBody = iOSLibSKPhysicsBody. (ImageView1.view.Frame) // add a border in case we will change the movement to MotionManager
 		    // SpaceShooterScene.PhysicsBody.CategoryBitMask = 0
 		    
-		    CreateFighter // Prepare the fighter graphics
+		    CreateFighter
 		    
-		    SpaceShooterScene.ScaleMode = iOSLibSKScene.SKSceneScaleMode.FillProportional // stay in proportions!
+		    SpaceShooterScene.ScaleMode = iOSLibSKScene.SKSceneScaleMode.FillProportional
 		    
-		    dim BackGroundnode as new iOSLibSKNode // a new layer for the star background
+		    dim BackGroundnode as new iOSLibSKNode
 		    BackGroundnode.Name = SpaceLayerName
-		    SpaceShooterScene.AddChild  BackGroundnode // added to the scene
+		    SpaceShooterScene.AddChild  BackGroundnode
 		    
-		    SpaceShooterScene.AddChild FighterNormal // add the fighter too
-		    Enemy1Texture = new iOSLibSKTexture (Enemy1Name) // prepare the enemy graphics
-		    starfall   = iOSLibSKAction.MoveToY (-10, BackgroundSpeedScrollDuration)
-		    dim fightershotmove as iOSLibSKAction = iOSLibSKAction.MoveToY (ImageView1.Height + 50, 1)
-		    dim soundaction as iOSLibSKAction = iOSLibSKAction.PlaySound ("Standardshoot.mp3", false)
-		    FighterShot = iOSLibSKAction.Sequence (soundaction, FighterShotmove)
-		    
-		    EnemyShot = iOSLibSKAction.movetoy (-50, 2.5)
-		    
-		    TextureLeftAction = iOSLibSKAction.setTexture ( FighterLeftTexture) // makes the fighter wiggle to the left
-		    TextureRightAction = iOSLibSKAction.setTexture ( FighterRightTexture) // and to the right
-		    TextureNormalAction = iOSLibSKAction.setTexture ( FighterNormalTexture)
+		    SpaceShooterScene.AddChild FighterNormal
+		    Enemy1Texture = new iOSLibSKTexture (Enemy1Name)
 		    CreateEnemy
 		    
+		    
 		  end if
+		  starfall   = iOSLibSKAction.MoveToY (-10, BackgroundSpeedScrollDuration)
+		  dim fightershotmove as iOSLibSKAction = iOSLibSKAction.MoveToY (ImageView1.Height + 50, 1)
+		  dim soundaction as iOSLibSKAction = iOSLibSKAction.PlaySound ("Standardshoot.mp3", false)
+		  FighterShot = iOSLibSKAction.Sequence (soundaction, FighterShotmove)
+		  
+		  EnemyShot = iOSLibSKAction.movetoy (-50, 2.5)
+		  
+		  
+		  TextureLeftAction = iOSLibSKAction.setTexture ( FighterLeftTexture)
+		  TextureRightAction = iOSLibSKAction.setTexture ( FighterRightTexture)
+		  TextureNormalAction = iOSLibSKAction.setTexture ( FighterNormalTexture)
+		  
 		  
 		  ImageView1.ShouldCullNonVisibleNodes = true
 		  imageview1.PresentScene SpaceShooterScene
@@ -535,25 +528,13 @@ End
 	#tag Constant, Name = EnemyCategory, Type = Double, Dynamic = False, Default = \"16", Scope = Private
 	#tag EndConstant
 
-	#tag Constant, Name = EnemyMovingName, Type = Text, Dynamic = False, Default = \"EnemyMoving", Scope = Private
-	#tag EndConstant
-
 	#tag Constant, Name = FighterCategory, Type = Double, Dynamic = False, Default = \"8", Scope = Private
-	#tag EndConstant
-
-	#tag Constant, Name = FighterMovingName, Type = Text, Dynamic = False, Default = \"FighterMoving", Scope = Private
-	#tag EndConstant
-
-	#tag Constant, Name = FighterName, Type = Text, Dynamic = False, Default = \"Fighter", Scope = Private
 	#tag EndConstant
 
 	#tag Constant, Name = ObjectCategory, Type = Double, Dynamic = False, Default = \"1", Scope = Private
 	#tag EndConstant
 
 	#tag Constant, Name = SpaceLayerName, Type = Text, Dynamic = False, Default = \"SpaceLayer", Scope = Private
-	#tag EndConstant
-
-	#tag Constant, Name = SpaceShooterName, Type = Text, Dynamic = False, Default = \"SpaceShooter", Scope = Private
 	#tag EndConstant
 
 	#tag Constant, Name = StarFallName, Type = Text, Dynamic = False, Default = \"StarFall", Scope = Private
@@ -577,8 +558,10 @@ End
 	#tag EndEvent
 	#tag Event
 		Sub TouchesEnded(Touchset as ioslibset, anEvent as iOSLibEvent)
-		  if me.scene.name = SpaceShooterName then ProcessSpaceShooterTouch (Touchset, anEvent)
-		  
+		  select case me.scene.name
+		  case "SpaceShooter"
+		    ProcessSpaceShooterTouch (Touchset, anEvent)
+		  end select
 		End Sub
 	#tag EndEvent
 	#tag Event
@@ -588,12 +571,12 @@ End
 	#tag EndEvent
 	#tag Event
 		Sub UpdateForScene(time as Double)
-		  if me.Scene.name = SpaceShooterName then CreateStar
+		  if me.Scene.name = "SpaceShooter" then CreateStar
 		End Sub
 	#tag EndEvent
 	#tag Event
 		Sub DidBeginContact(Contact as iOSLibSKPhysicsContact)
-		  if ImageView1.Scene.Name = SpaceShooterName then
+		  if ImageView1.Scene.Name = "SpaceShooter" then
 		    analyzeCollision(contact)
 		  end if
 		End Sub
