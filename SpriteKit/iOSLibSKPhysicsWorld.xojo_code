@@ -2,6 +2,13 @@
 Protected Class iOSLibSKPhysicsWorld
 Inherits iOSLibObject
 	#tag Method, Flags = &h0
+		Sub AddJoint(joint as iOSLibSKPhysicsJoint)
+		  Declare sub addJoint lib SpriteKit selector "addJoint:" (id as ptr, joint as ptr)
+		  addJoint id, joint.id
+		End Sub
+	#tag EndMethod
+
+	#tag Method, Flags = &h0
 		Function BodyAlongRay(startPoint as NSPoint, endPoint as NSPoint) As iOSLibSKPhysicsBody
 		  #if Target64Bit
 		    Declare Function bodyAlongRay lib SpriteKit selector "bodyAlongRayStart:end:" (id as ptr, startPoint as NSPoint, endPoint as NSPoint) as Ptr
@@ -35,6 +42,86 @@ Inherits iOSLibObject
 		    return iOSLibSKPhysicsBody.MakeFromPtr (bodyInRect (id, aRect.toNSRect32))
 		  #endif
 		End Function
+	#tag EndMethod
+
+	#tag Method, Flags = &h0
+		Sub RemoveAllJoints()
+		  Declare sub removeAllJoints lib SpriteKit selector "removeAllJoints" (id as ptr)
+		  removeAllJoints id
+		End Sub
+	#tag EndMethod
+
+	#tag Method, Flags = &h0
+		Sub RemoveJoint(joint as iOSLibSKPhysicsJoint)
+		  Declare sub removeJoint lib SpriteKit selector "removeJoint:" (id as ptr, joint as ptr)
+		  removeJoint id, joint.id
+		End Sub
+	#tag EndMethod
+
+	#tag Method, Flags = &h0
+		Function RunBlockOnBodiesAlongRay(startPoint as NSPoint, endPoint as NSPoint, block as iosblock) As iOSLibSKPhysicsBody
+		  #if Target64Bit
+		    Declare Sub enumerateBodiesAlongRay lib SpriteKit selector "enumerateBodiesAlongRayStart:end:usingBlock:" _
+		    (id as ptr, startPoint as NSPoint, endPoint as NSPoint, block as ptr)
+		    enumerateBodiesAlongRay (id, startPoint, endPoint, block.Handle)
+		  #elseif Target32Bit
+		    Declare Sub enumerateBodiesAlongRay lib SpriteKit selector "enumerateBodiesAlongRayStart:end:usingBlock:" _
+		    (id as ptr, startPoint as NSPoint32Bit, endPoint as NSPoint32Bit, block as ptr)
+		    enumerateBodiesAlongRay (id, startPoint.toNSPoint32, endPoint.toNSPoint32, block.Handle)
+		  #endif
+		End Function
+	#tag EndMethod
+
+	#tag Method, Flags = &h0
+		Function RunBlockOnBodiesAtPoint(aPoint as NSPoint, block as iosblock) As iOSLibSKPhysicsBody
+		  #if Target64Bit
+		    Declare Sub enumerateBodiesAtPoint lib SpriteKit selector "enumerateBodiesAtPoint:usingBlock:" _
+		    (id as ptr, atPoint as NSPoint, block as ptr)
+		    enumerateBodiesAtPoint (id, aPoint, block.Handle)
+		  #elseif Target32Bit
+		    Declare Sub enumerateBodiesAtPoint lib SpriteKit selector "enumerateBodiesAtPoint:usingBlock:" _
+		    (id as ptr, aPoint as NSPoint32Bit,  block as ptr)
+		    enumerateBodiesAtPoint (id, aPoint.toNSPoint32, block.Handle)
+		  #endif
+		End Function
+	#tag EndMethod
+
+	#tag Method, Flags = &h0
+		Function RunBlockOnBodiesInRect(aRect as NSRect, block as iosblock) As iOSLibSKPhysicsBody
+		  #if Target64Bit
+		    Declare Sub enumerateBodiesInRect lib SpriteKit selector "enumerateBodiesInRect:usingBlock:" _
+		    (id as ptr, aRect as NSRect, block as ptr)
+		    enumerateBodiesInRect (id, aRect, block.Handle)
+		  #elseif Target32Bit
+		    Declare Sub enumerateBodiesInRect lib SpriteKit selector "enumerateBodiesInRect:usingBlock:" _
+		    (id as ptr, aRect as NSRect32Bit,  block as ptr)
+		    enumerateBodiesInRect (id, aRect.toNSRect32, block.Handle)
+		  #endif
+		End Function
+	#tag EndMethod
+
+	#tag Method, Flags = &h21
+		Private Shared Sub RunBlockPointRectTemplate(Body as ptr, byref stop as Boolean)
+		  dim PhysicsBody as iOSLibSKPhysicsBody = iOSLibSKPhysicsBody.MakeFromPtr (body)
+		  // do whatever you want to perform on the Body
+		  // if you want to stop further body processing, set stop = True
+		End Sub
+	#tag EndMethod
+
+	#tag Method, Flags = &h21
+		Private Shared Sub RunBlockRayTemplate32Bit(Body as ptr, ContactPoint as NSPoint32Bit, Normal as CGVector32Bit, byref stop as Boolean)
+		  dim PhysicsBody as iOSLibSKPhysicsBody = iOSLibSKPhysicsBody.MakeFromPtr (body)
+		  // here you can evalue the point in screen coordinates where the ray hit and the distance from its startpoint to contactpoint
+		  // if you want to stop further body processing, set stop = True
+		End Sub
+	#tag EndMethod
+
+	#tag Method, Flags = &h21
+		Private Shared Sub RunBlockRayTemplate64Bit(Body as ptr, ContactPoint as NSPoint, Normal as CGVector, byref stop as Boolean)
+		  dim PhysicsBody as iOSLibSKPhysicsBody = iOSLibSKPhysicsBody.MakeFromPtr (body)
+		  // here you can evalue the point in screen coordinates where the ray hit and the distance from its startpoint to contactpoint
+		  // if you want to stop further body processing, set stop = True
+		End Sub
 	#tag EndMethod
 
 
