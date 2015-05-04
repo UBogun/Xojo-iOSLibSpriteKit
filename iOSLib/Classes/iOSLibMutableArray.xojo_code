@@ -58,7 +58,40 @@ Inherits iOSLibArray
 	#tag EndMethod
 
 	#tag Method, Flags = &h0
-		 Shared Function fromosLibObjects(paramarray objects() as ioslibobject) As ioslibmutablearray
+		 Shared Function fromGeneralObjects(paramarray objects() as iOSLibGeneralObject) As ioslibmutablearray
+		  dim count as uinteger = objects.Ubound
+		  dim myarray as new ioslibmutablearray (count + 1)
+		  for q as uinteger = 0 to count
+		    myarray.Addobject objects(q).GeneralID
+		  next
+		  return myarray
+		End Function
+	#tag EndMethod
+
+	#tag Method, Flags = &h0
+		 Shared Function fromGeneralObjects(objects() as iOSLibGeneralObject) As ioslibmutablearray
+		  dim count as uinteger = objects.Ubound
+		  dim myarray as new ioslibmutablearray (count + 1)
+		  for q as uinteger = 0 to count
+		    myarray.Addobject objects(q).GeneralID
+		  next
+		  return myarray
+		End Function
+	#tag EndMethod
+
+	#tag Method, Flags = &h0
+		 Shared Function fromiOSLibObjects(paramarray objects() as ioslibobject) As ioslibmutablearray
+		  dim count as uinteger = objects.Ubound
+		  dim myarray as new ioslibmutablearray (count + 1)
+		  for q as uinteger = 0 to count
+		    myarray.Addobject objects(q).id
+		  next
+		  return myarray
+		End Function
+	#tag EndMethod
+
+	#tag Method, Flags = &h0
+		 Shared Function fromiOSLibObjects(objects() as ioslibobject) As ioslibmutablearray
 		  dim count as uinteger = objects.Ubound
 		  dim myarray as new ioslibmutablearray (count + 1)
 		  for q as uinteger = 0 to count

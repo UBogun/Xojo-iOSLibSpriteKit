@@ -12,10 +12,10 @@ Begin iosView SpriteKitView
       AccessibilityLabel=   ""
       AllowsTransparency=   False
       Asynchronous    =   False
-      AutoLayout      =   ImageView1, 1, <Parent>, 1, False, +1.00, 1, 1, 0, 
-      AutoLayout      =   ImageView1, 3, TopLayoutGuide, 4, False, +1.00, 1, 1, *kStdControlGapV, 
-      AutoLayout      =   ImageView1, 2, <Parent>, 2, False, +1.00, 1, 1, 0, 
       AutoLayout      =   ImageView1, 4, BottomLayoutGuide, 3, False, +1.00, 1, 1, 0, 
+      AutoLayout      =   ImageView1, 3, TopLayoutGuide, 4, False, +1.00, 1, 1, *kStdControlGapV, 
+      AutoLayout      =   ImageView1, 1, <Parent>, 1, False, +1.00, 1, 1, 0, 
+      AutoLayout      =   ImageView1, 2, <Parent>, 2, False, +1.00, 1, 1, 0, 
       FrameInterval   =   0
       Height          =   407.0
       IgnoresSiblingOrder=   False
@@ -404,7 +404,14 @@ End
 		    Enemy1Texture = new iOSLibSKTexture (Enemy1Name)
 		    CreateEnemy
 		    
-		    
+		    dim file as FolderItem = SpecialFolder.GetResource ("song18_0.mp3")
+		    dim myurl as new iOSLibURL (file)
+		    dim myplayer as new iOSLibAVPlayer (myurl)
+		    myplayer.play
+		    dim mynode as new iOSLibSKVideoNode (myplayer)
+		    mynode.Play
+		    SpaceShooterScene.AddChild mynode
+		    myplayer.ExternalPlaybackVideoGravity = iOSLibAVPlayer.AVLayerGravity.FitProportional
 		  end if
 		  starfall   = iOSLibSKAction.MoveToY (-10, BackgroundSpeedScrollDuration)
 		  dim fightershotmove as iOSLibSKAction = iOSLibSKAction.MoveToY (ImageView1.Height + 50, 1)
@@ -426,6 +433,93 @@ End
 		  // bear.RunActionWithKey iOSLibSKAction.RepeatAction (myanimation), "WalkingBear"
 		End Sub
 	#tag EndMethod
+
+
+	#tag Note, Name = Image and Sounds Credits
+		
+		Space Ship parts and graphics:
+		---
+		
+		
+		
+		Space Shooter Create-a-ship expansion graphics by Kenney Vleugels (www.kenney.nl)
+		
+		
+		
+		You may use these graphics in personal and commercial projects.
+		
+		Credit (www.kenney.nl) would be nice but is not mandatory.
+		
+		
+		
+		--
+		
+		Additional Graphics:
+		License (http://creativecommons.org/licenses/by/3.0/)
+		
+		
+		
+		You are free:
+		
+		
+		
+		* to Share ó to copy, distribute and transmit the work
+		
+		* to Remix ó to adapt the work
+		
+		
+		
+		Under the following conditions:
+		
+		
+		
+		* Attribution ó You must attribute the work in the manner specified by the author or licensor (but not in any way that suggests that they endorse you or your use of the work).
+		
+		
+		
+		
+		
+		ATTRIBUTION INSTRUCTIONS:
+		
+		
+		
+		Include my name "Ville Seppanen" in the application/game where the creators/contributors are listed.
+		
+		
+		
+		Optional:
+		
+		
+		
+		- Leave a link to your project on the opengameart.org download page as a comment (get free exposure!)
+		
+		- Email or message me with information regarding your app or game if you want it to appear on my Facebook (get even more free exposure!)
+		
+		- Link to my portfolio (villeseppanen.com) if you are a cool person ;)
+		
+		
+		
+		Thank you!
+		
+		
+		
+		ville.seppanen@gmail.com
+		
+		––
+		
+		
+		Additional graphics from opengameart.org (sadly without license files attched to the downloads)
+		
+		--
+		
+		Crystal Cave song:
+		Credit pixelsphere.org / The Cynic Project. Please link to my website and notify me if you use the music.
+		
+		__
+		
+		Walking Bear Demo idea: raywenderlich.com
+		Walking Bear graphcis: gameartguppy.com
+	#tag EndNote
 
 
 	#tag Property, Flags = &h21

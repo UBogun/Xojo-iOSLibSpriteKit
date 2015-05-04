@@ -1,31 +1,45 @@
 #tag Class
-Protected Class iOSLibURL
-Inherits iOSLibObject
-	#tag Method, Flags = &h1000
-		Sub Constructor(aURL as CFStringRef)
-		  Declare function initWithString lib UIKit selector "initWithString:" (id as ptr, aURL as CFStringRef) as ptr
-		  // Calling the overridden superclass constructor.
-		  // Note that this may need modifications if there are multiple constructor choices.
-		  // Possible constructor calls:
-		  // Constructor() -- From iOSLibObject
-		  // Constructor(AnId as Ptr) -- From iOSLibObject
-		  Super.Constructor (initWithString(alloc(ClassPtr), aURL))
-		  mhasownership= true
+Protected Class iOSLibAVPlayerItem
+Inherits iosLibObject
+	#tag Method, Flags = &h1021
+		Private Sub Constructor()
 		  
 		End Sub
 	#tag EndMethod
 
 	#tag Method, Flags = &h1000
-		Sub Constructor(aURL as folderitem)
-		  Constructor (aURL.URLPath)
+		Sub Constructor(URLName as CFStringRef)
+		  dim myURL as new iosliburl (URLName)
+		  Constructor (myurl)
+		  
 		End Sub
+	#tag EndMethod
+
+	#tag Method, Flags = &h1000
+		Sub Constructor(aURL as iOSLibURL)
+		  Declare function initWithURL lib AVFoundation selector "initWithURL:" (id as ptr, url as ptr) as ptr
+		  // Calling the overridden superclass constructor.
+		  // Note that this may need modifications if there are multiple constructor choices.
+		  // Possible constructor calls:
+		  // Constructor() -- From iOSLibObject
+		  // Constructor(AnId as Ptr) -- From iOSLibObject
+		  Super.Constructor (initWithURL(alloc(Classptr), aURL.id))
+		  mhasownership = true
+		  
+		End Sub
+	#tag EndMethod
+
+	#tag Method, Flags = &h0
+		 Shared Function makefromPtr(aPtr as Ptr) As iOSLibAVPlayerItem
+		  return if (aptr = nil, nil, new iOSLibAVPlayerItem(aptr))
+		End Function
 	#tag EndMethod
 
 
 	#tag ComputedProperty, Flags = &h1
 		#tag Getter
 			Get
-			  static mClassPtr as Ptr = NSClassFromString ("NSURL")
+			  static mClassPtr as Ptr = NSClassFromString ("AVPlayerItem")
 			  return mClassPtr
 			End Get
 		#tag EndGetter

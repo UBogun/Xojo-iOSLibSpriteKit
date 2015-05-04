@@ -65,13 +65,19 @@ Inherits ioslibobject
 	#tag EndMethod
 
 	#tag Method, Flags = &h0
-		 Shared Function ObjectArray(paramarray objects() as iOSLibGeneralObject) As iOSLibMutableArray
-		  dim count as uinteger = objects.Ubound
-		  dim myarray as new iOSLibMutableArray (count + 1)
-		  for q as uinteger = 0 to count
-		    myarray.Addobject objects(q).GeneralID
-		  next
-		  return myarray
+		 Shared Function NoiseTexture(Smoothness as Double, Size as NSSize, grayscale as boolean = false) As iOSLibSKTexture
+		  dim result as ioslibsktexture
+		  #if Target64Bit
+		    Declare function textureVectorNoiseWithSmoothness lib SpriteKit selector "textureVectorNoiseWithSmoothness:size:grayscale:" _
+		    (id as ptr, Smoothness as Double, size as NSSize, grayscale as boolean) as ptr
+		    result =  new ioslibsktexture (textureVectorNoiseWithSmoothness (ClassPtr, Smoothness, Size, grayscale))
+		  #elseif Target32Bit
+		    Declare function textureVectorNoiseWithSmoothness lib SpriteKit selector "textureVectorNoiseWithSmoothness:size:grayscale:" _
+		    (id as ptr, Smoothness as Single, size as NSSize32Bit, grayscale as boolean) as ptr
+		    result =  new ioslibsktexture (textureVectorNoiseWithSmoothness (ClassPtr, Smoothness, Size.toNSSize32, grayscale))
+		  #endif
+		  result.RetainClassObject
+		  return result
 		End Function
 	#tag EndMethod
 

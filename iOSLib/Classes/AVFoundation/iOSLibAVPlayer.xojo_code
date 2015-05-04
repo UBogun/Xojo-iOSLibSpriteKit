@@ -117,6 +117,22 @@ Inherits ioslibobject
 	#tag ComputedProperty, Flags = &h0
 		#tag Getter
 			Get
+			  Declare function allowsExternalPlayback lib AVFoundation selector "allowsExternalPlayback" (id as ptr) as Boolean
+			  return allowsExternalPlayback (id)
+			End Get
+		#tag EndGetter
+		#tag Setter
+			Set
+			  Declare Sub setAllowsExternalPlayback lib AVFoundation selector "setAllowsExternalPlayback:" (id as ptr, value as Boolean)
+			  setAllowsExternalPlayback id, value
+			End Set
+		#tag EndSetter
+		AllowsExternalPlayback As Boolean
+	#tag EndComputedProperty
+
+	#tag ComputedProperty, Flags = &h0
+		#tag Getter
+			Get
 			  Declare function appliesMediaSelectionCriteriaAutomatically lib AVFoundation selector "appliesMediaSelectionCriteriaAutomatically" (id as ptr) as Boolean
 			  return appliesMediaSelectionCriteriaAutomatically (id)
 			End Get
@@ -159,6 +175,16 @@ Inherits ioslibobject
 	#tag ComputedProperty, Flags = &h0
 		#tag Getter
 			Get
+			  Declare function currentItem lib AVFoundation selector "currentItem" (id as ptr) as Ptr
+			  return iOSLibAVPlayerItem.makefromPtr (currentItem (id))
+			End Get
+		#tag EndGetter
+		currentItem As iOSLibAVPlayerItem
+	#tag EndComputedProperty
+
+	#tag ComputedProperty, Flags = &h0
+		#tag Getter
+			Get
 			  Declare function currentTime lib AVFoundation selector "currentTime" (id as ptr) as CMTime
 			  return currentTime (id)
 			End Get
@@ -170,6 +196,78 @@ Inherits ioslibobject
 			End Set
 		#tag EndSetter
 		currentTime As CMTime
+	#tag EndComputedProperty
+
+	#tag ComputedProperty, Flags = &h0
+		#tag Getter
+			Get
+			  Declare function isExternalPlaybackActive lib AVFoundation selector "isExternalPlaybackActive" (id as ptr) as Boolean
+			  return isExternalPlaybackActive (id)
+			End Get
+		#tag EndGetter
+		ExternalPlaybackActive As Boolean
+	#tag EndComputedProperty
+
+	#tag ComputedProperty, Flags = &h0
+		#tag Getter
+			Get
+			  select case ExternalPlaybackVideoGravityText
+			  case AVLayerVideoGravityResize
+			    return AVLayerGravity.Fill
+			  case AVLayerVideoGravityResizeAspect
+			    return AVLayerGravity.FitProportional
+			  case AVLayerVideoGravityResizeAspectFill
+			    return AVLayerGravity.FillProportional
+			  end select
+			End Get
+		#tag EndGetter
+		#tag Setter
+			Set
+			  dim myvalue as text
+			  select case value
+			  case AVLayerGravity.Fill
+			    myvalue = AVLayerVideoGravityResize
+			  case AVLayerGravity.FitProportional
+			    myvalue= AVLayerVideoGravityResizeAspect 
+			  case AVLayerGravity.FillProportional
+			    myvalue = AVLayerVideoGravityResizeAspectFill 
+			  end select
+			  ExternalPlaybackVideoGravityText = myvalue
+			End Set
+		#tag EndSetter
+		ExternalPlaybackVideoGravity As AVLayerGravity
+	#tag EndComputedProperty
+
+	#tag ComputedProperty, Flags = &h1
+		#tag Getter
+			Get
+			  Declare function externalPlaybackVideoGravity lib AVFoundation selector "externalPlaybackVideoGravity" (id as ptr) as CFStringRef
+			  return externalPlaybackVideoGravity (id)
+			End Get
+		#tag EndGetter
+		#tag Setter
+			Set
+			  Declare Sub setExternalPlaybackVideoGravity lib AVFoundation selector "setExternalPlaybackVideoGravity:" (id as ptr, value as CFStringRef)
+			  setExternalPlaybackVideoGravity id, value
+			End Set
+		#tag EndSetter
+		Protected ExternalPlaybackVideoGravityText As text
+	#tag EndComputedProperty
+
+	#tag ComputedProperty, Flags = &h0
+		#tag Getter
+			Get
+			  Declare function usesExternalPlaybackWhileExternalScreenIsActive lib AVFoundation selector "usesExternalPlaybackWhileExternalScreenIsActive" (id as ptr) as Boolean
+			  return usesExternalPlaybackWhileExternalScreenIsActive (id)
+			End Get
+		#tag EndGetter
+		#tag Setter
+			Set
+			  Declare Sub setUsesExternalPlaybackWhileExternalScreenIsActive lib AVFoundation selector "setUsesExternalPlaybackWhileExternalScreenIsActive:" (id as ptr, value as Boolean)
+			  setUsesExternalPlaybackWhileExternalScreenIsActive id, value
+			End Set
+		#tag EndSetter
+		ExternalPlaybackWhileExternalScreenActive As Boolean
 	#tag EndComputedProperty
 
 	#tag ComputedProperty, Flags = &h0
@@ -231,6 +329,16 @@ Inherits ioslibobject
 	#tag EndComputedProperty
 
 
+	#tag Constant, Name = AVLayerVideoGravityResize, Type = Text, Dynamic = False, Default = \"AVLayerVideoGravityResize", Scope = Public
+	#tag EndConstant
+
+	#tag Constant, Name = AVLayerVideoGravityResizeAspect, Type = Text, Dynamic = False, Default = \"AVLayerVideoGravityResizeAspect", Scope = Public
+	#tag EndConstant
+
+	#tag Constant, Name = AVLayerVideoGravityResizeAspectFill, Type = Text, Dynamic = False, Default = \"AVLayerVideoGravityResizeAspectFill", Scope = Public
+	#tag EndConstant
+
+
 	#tag Structure, Name = CMTime, Flags = &h0
 		TimeValue As Int64
 		  TimeScale As Int32
@@ -238,6 +346,12 @@ Inherits ioslibobject
 		TimeEpoch As Int64
 	#tag EndStructure
 
+
+	#tag Enum, Name = AVLayerGravity, Type = Integer, Flags = &h0
+		Fill
+		  FitProportional
+		FillProportional
+	#tag EndEnum
 
 	#tag Enum, Name = AVPlayerActionAtItemEnd, Type = Integer, Flags = &h0
 		Advance
@@ -253,6 +367,27 @@ Inherits ioslibobject
 
 
 	#tag ViewBehavior
+		#tag ViewProperty
+			Name="actionAtItemEnd"
+			Group="Behavior"
+			Type="AVPlayerActionAtItemEnd"
+			EditorType="Enum"
+			#tag EnumValues
+				"0 - Advance"
+				"1 - Pause"
+				"2 - None"
+			#tag EndEnumValues
+		#tag EndViewProperty
+		#tag ViewProperty
+			Name="AutomaticMediaSelection"
+			Group="Behavior"
+			Type="Boolean"
+		#tag EndViewProperty
+		#tag ViewProperty
+			Name="ClosedCaption"
+			Group="Behavior"
+			Type="Boolean"
+		#tag EndViewProperty
 		#tag ViewProperty
 			Name="DebugDescription"
 			Group="Behavior"
@@ -288,10 +423,31 @@ Inherits ioslibobject
 			Type="Boolean"
 		#tag EndViewProperty
 		#tag ViewProperty
+			Name="Muted"
+			Group="Behavior"
+			Type="Boolean"
+		#tag EndViewProperty
+		#tag ViewProperty
 			Name="Name"
 			Visible=true
 			Group="ID"
 			Type="String"
+		#tag EndViewProperty
+		#tag ViewProperty
+			Name="Rate"
+			Group="Behavior"
+			Type="Single"
+		#tag EndViewProperty
+		#tag ViewProperty
+			Name="Status"
+			Group="Behavior"
+			Type="AVPlayerStatus"
+			EditorType="Enum"
+			#tag EnumValues
+				"0 - Unknown"
+				"1 - ReadyToPlay"
+				"2 - Failed"
+			#tag EndEnumValues
 		#tag EndViewProperty
 		#tag ViewProperty
 			Name="Super"
@@ -305,6 +461,11 @@ Inherits ioslibobject
 			Group="Position"
 			InitialValue="0"
 			Type="Integer"
+		#tag EndViewProperty
+		#tag ViewProperty
+			Name="Volume"
+			Group="Behavior"
+			Type="Single"
 		#tag EndViewProperty
 	#tag EndViewBehavior
 End Class
