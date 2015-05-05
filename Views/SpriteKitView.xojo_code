@@ -12,10 +12,10 @@ Begin iosView SpriteKitView
       AccessibilityLabel=   ""
       AllowsTransparency=   False
       Asynchronous    =   False
-      AutoLayout      =   ImageView1, 4, BottomLayoutGuide, 3, False, +1.00, 1, 1, 0, 
-      AutoLayout      =   ImageView1, 3, TopLayoutGuide, 4, False, +1.00, 1, 1, *kStdControlGapV, 
-      AutoLayout      =   ImageView1, 1, <Parent>, 1, False, +1.00, 1, 1, 0, 
       AutoLayout      =   ImageView1, 2, <Parent>, 2, False, +1.00, 1, 1, 0, 
+      AutoLayout      =   ImageView1, 3, TopLayoutGuide, 4, False, +1.00, 1, 1, *kStdControlGapV, 
+      AutoLayout      =   ImageView1, 4, BottomLayoutGuide, 3, False, +1.00, 1, 1, 0, 
+      AutoLayout      =   ImageView1, 1, <Parent>, 1, False, +1.00, 1, 1, 0, 
       FrameInterval   =   0
       Height          =   407.0
       IgnoresSiblingOrder=   False
@@ -62,20 +62,6 @@ End
 		End Sub
 	#tag EndEvent
 
-
-	#tag Method, Flags = &h21
-		Private Sub AddBackgroundStars()
-		  //
-		  // dim bgsprite as new iOSLibSKSpriteNode (new iOSLibSKTexture(new iOSLibImage(bg_parallax_stars)))
-		  // bgsprite.AnchorPoint = NSPoint (0, 0)
-		  // bgsprite.Position = nspoint (0, ImageView1.Height)
-		  // dim myaction as  iOSLibSKAction = iOSLibSKAction.MoveToY (-(bgsprite.Frame.Size_.height)+ ImageView1.Height, BackgroundSpeedScrollDuration)
-		  // SpaceShooterScene.AddChild bgsprite
-		  // dim completion as new iosblock (AddressOf AddBackgroundStars)
-		  // bgsprite.RunActionWithCompletionBlock  myaction, completion
-		  
-		End Sub
-	#tag EndMethod
 
 	#tag Method, Flags = &h21
 		Private Sub analyzeCollision(contact as iOSLibSKPhysicsContact)
@@ -176,7 +162,6 @@ End
 		  
 		  FighterNormal = new iOSLibSKSpriteNode (FighterNormalTexture) // now create a Sprite with the normal image
 		  // FighterNormal.setScale  1/ImageView1.view.ContentScaleFactor // scale it so it matches the display resolution
-		  FighterNormal.BlendMode = iOSLibSKNode.SKBlendMode.Screen
 		  FighterNormal.Position = NSPoint (ImageView1.Width/2, FighterNormal.Frame.Size_.height * 2) // and place it in the middle just a bit above the bottom
 		  
 		  dim FighterBody as new iOSLibSKPhysicsBody (FighterNormal.Frame.Size_) // now add a rectangular physics body for collision detection
@@ -188,6 +173,7 @@ End
 		  FighterNormal.PhysicsBody = FighterBody // now assining the phyics body
 		  
 		  FighterNormal.Name = "Fighter"
+		  FighterNormal.BlendMode = iOSLibSKNode.SKBlendMode.Add
 		  
 		  // now create the Bullets
 		  
@@ -203,12 +189,12 @@ End
 		  dim random as integer = randomint (0,100000)
 		  select case random
 		  case 5 to 20000
-		    dim astar as iOSLibSKShapeNode = iOSLibSKShapeNode.Circle (randomint(1,10) / 10)
-		    astar.FillColor = astar.StrokeColor
-		    astar.GlowWidth = astar.Frame.Size_.width *( randomint (0,5)/10)
-		    astar.Position = nspoint (randomint(0,ImageView1.Width), ImageView1.Height + 10)
-		    SpaceShooterScene.ChildNode(SpaceLayerName).AddChild astar
-		    astar.RunActionWithKey (starfall, StarFallName)
+		    // dim astar as iOSLibSKShapeNode = iOSLibSKShapeNode.Circle (randomint(1,10) / 10)
+		    // astar.FillColor = astar.StrokeColor
+		    // astar.GlowWidth = astar.Frame.Size_.width *( randomint (0,5)/10)
+		    // astar.Position = nspoint (randomint(0,ImageView1.Width), ImageView1.Height + 10)
+		    // SpaceShooterScene.ChildNode(SpaceLayerName).AddChild astar
+		    // astar.RunActionWithKey (starfall, StarFallName)
 		  case 95000 to 99000
 		    CalculateEnemyMove
 		  case 99050 to 100000
@@ -218,6 +204,41 @@ End
 		    dim createblock as new iOSBlock (AddressOf CreateEnemy)
 		    SpaceShooterScene.RunAction (iOSLibSKAction.Sequence (iOSLibSKAction.Wait (2, 2), iOSLibSKAction.RunBlock (createblock)))
 		  end if
+		End Sub
+	#tag EndMethod
+
+	#tag Method, Flags = &h21
+		Private Sub CreateStarBackground()
+		  dim BackGroundnode as new iOSLibSKEmitterNode // An emitter for the stars background
+		  BackGroundnode.Name = SpaceLayerName // a name so we can find it later if we need
+		  BackGroundnode.ZPosition = -1 // push it one layer back from the Viewer
+		  
+		  BackGroundnode.ParticleTexture = new iOSLibSKTexture ("SmallSun") // load the sun picture
+		  BackGroundnode.ParticleSize = NSSize (3,3) // and make it small
+		  BackGroundnode.ParticleScaleRange = 3 // but give it a variation in size
+		  
+		  BackGroundnode.ParticleColor = new iOSLibColor (&cFFFFFF00)
+		  BackGroundnode.ParticleColorBlendFactor = 1 // overlay a white color
+		  BackGroundnode.ParticleColorRedRange = 0.5 // but vary it a bit
+		  BackGroundnode.ParticleColorBlueRange = 0.5
+		  BackGroundnode.ParticleColorGreenRange = 0.5
+		  BackGroundnode.ParticleBlendMode = iOSLibSKNode.SKBlendMode.add
+		  BackGroundnode.ParticleAlphaRange = 0.6 // dim them randomly
+		  BackGroundnode.ParticleZPosition = -1 // Don't know why the fighter still is transparent to the stars
+		  
+		  
+		  BackGroundnode.ParticleBirthRate = 15 // Don't create  too many
+		  BackGroundnode.ParticlePosition = nspoint (ImageView1.Width / 2, ImageView1.Height) // spawn them on top of the view
+		  BackGroundnode.ParticlePositionRange = CGVector (ImageView1.Width, 0) // over its full width
+		  BackGroundnode.ParticleSpeed = ImageView1.Height / BackgroundSpeedScrollDuration // make them drift nicely
+		  BackGroundnode.ParticleSpeedRange = (ImageView1.Height / BackgroundSpeedScrollDuration)/ 4 // with variance to add depth
+		  BackGroundnode.ParticleLifetime = BackgroundSpeedScrollDuration * 1.25 // kill them when they left the stage
+		  dim myvalue as double =  270 // the spawn angle
+		  BackGroundnode.EmissionAngle = myvalue.DegreeToRadian
+		  SpaceShooterScene.AddChild  BackGroundnode
+		  // BackGroundnode.Paused = false
+		  BackGroundnode.AdvanceSimulationTime (10) // skip a few seconds so we start with a full background
+		  
 		End Sub
 	#tag EndMethod
 
@@ -320,7 +341,7 @@ End
 		Private Sub ShootWorld()
 		  dim myscene as new iOSLibSKSceneWithInterface (ImageView1.View.frame.Size_, ImageView1)
 		  myscene.PhysicsWorld.Gravity = CGVector (0,-0.05)
-		  ImageView1.PresentScene myscene
+		  ImageView1.PresentScene (myscene, iOSLibSKTransition.Doorway (2))
 		  
 		  
 		  // Labelnode
@@ -386,23 +407,21 @@ End
 
 	#tag Method, Flags = &h21
 		Private Sub Spaceshooter()
-		  if SpaceShooterScene = nil then
-		    SpaceShooterScene = new iOSLibSKSceneWithInterface (ImageView1.View.frame.Size_ , ImageView1) // Dim a new Scene the size of the view
+		  if SpaceShooterScene = nil then // do we have to create a new scene or does one still exist?
+		    SpaceShooterScene = new iOSLibSKSceneWithInterface (ImageView1) // Dim a new Scene the size of the view
 		    SpaceShooterScene.name = "SpaceShooter" //and give it a name..
-		    // SpaceShooterScene.PhysicsBody = iOSLibSKPhysicsBody. (ImageView1.view.Frame) // add a border in case we will change the movement to MotionManager
-		    // SpaceShooterScene.PhysicsBody.CategoryBitMask = 0
+		    
+		    createStarBackground
 		    
 		    CreateFighter
 		    
 		    SpaceShooterScene.ScaleMode = iOSLibSKScene.SKSceneScaleMode.FillProportional
 		    
-		    dim BackGroundnode as new iOSLibSKNode
-		    BackGroundnode.Name = SpaceLayerName
-		    SpaceShooterScene.AddChild  BackGroundnode
 		    
 		    SpaceShooterScene.AddChild FighterNormal
 		    Enemy1Texture = new iOSLibSKTexture (Enemy1Name)
 		    CreateEnemy
+		    
 		    
 		    dim file as FolderItem = SpecialFolder.GetResource ("song18_0.mp3")
 		    dim myurl as new iOSLibURL (file)
@@ -416,7 +435,7 @@ End
 		  starfall   = iOSLibSKAction.MoveToY (-10, BackgroundSpeedScrollDuration)
 		  dim fightershotmove as iOSLibSKAction = iOSLibSKAction.MoveToY (ImageView1.Height + 50, 1)
 		  dim soundaction as iOSLibSKAction = iOSLibSKAction.PlaySound ("Standardshoot.mp3", false)
-		  FighterShot = iOSLibSKAction.Sequence (soundaction, FighterShotmove)
+		  FighterShot = iOSLibSKAction.Sequence (soundaction, FighterShotmove, iOSLibSKAction.RemoveFromParent)
 		  
 		  EnemyShot = iOSLibSKAction.movetoy (-50, 2.5)
 		  
@@ -427,7 +446,7 @@ End
 		  
 		  
 		  ImageView1.ShouldCullNonVisibleNodes = true
-		  imageview1.PresentScene SpaceShooterScene
+		  imageview1.PresentScene SpaceShooterScene, iOSLibSKTransition.MoveIn (iOSLibSKTransition.SKTransitionDirection.Down, 2)
 		  
 		  // dim myanimation as  iOSLibSKAction = iOSLibSKAction.AnimateWithTextures (bearwalkframes, 0.1)
 		  // bear.RunActionWithKey iOSLibSKAction.RepeatAction (myanimation), "WalkingBear"
@@ -640,13 +659,12 @@ End
 #tag Events ImageView1
 	#tag Event
 		Sub Open()
-		  System.DebugLog "Opened"
 		  me.ShowsFPS = true
 		  me.ShowsDrawCount = true
 		  me.ShowsNodeCount = true
-		  me.ShowsFields = true
-		  me.ShowsPhysics = true
-		  me.ShowsQuadCount = true
+		  // me.ShowsFields = true
+		  // me.ShowsPhysics = true
+		  // me.ShowsQuadCount = true
 		  
 		End Sub
 	#tag EndEvent

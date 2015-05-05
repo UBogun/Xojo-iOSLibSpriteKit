@@ -125,19 +125,19 @@ Inherits iOSLibObject
 	#tag EndMethod
 
 	#tag Method, Flags = &h0
-		Function SampleFields(Position as ioslibsknode.Vector_Float3) As ioslibsknode.Vector_Float3
-		  Declare Function sampleFieldsAt lib SpriteKit selector "sampleFieldsAt:" (id as ptr, position as  ioslibsknode.Vector_Float3) as  ioslibsknode.Vector_Float3
-		  return sampleFieldsAt (id, Position)
+		Function SampleFields(Position as NSPoint) As CGVector
+		  dim Vector as  Vector_Float3
+		  Vector.x = Position.x
+		  Vector.y = Position.y
+		  dim result as  Vector_Float3 = SampleFields (vector)
+		  return CGVector (result.x, result.y)
 		End Function
 	#tag EndMethod
 
 	#tag Method, Flags = &h0
-		Function SampleFields(Position as NSPoint) As CGVector
-		  dim Vector as  ioslibsknode.Vector_Float3
-		  Vector.x = Position.x
-		  Vector.y = Position.y
-		  dim result as  ioslibsknode.Vector_Float3 = SampleFields (vector)
-		  return CGVector (result.x, result.y)
+		Function SampleFields(Position as Vector_Float3) As Vector_Float3
+		  Declare Function sampleFieldsAt lib SpriteKit selector "sampleFieldsAt:" (id as ptr, position as  Vector_Float3) as  Vector_Float3
+		  return sampleFieldsAt (id, Position)
 		End Function
 	#tag EndMethod
 

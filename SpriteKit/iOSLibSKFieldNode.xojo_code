@@ -78,7 +78,7 @@ Inherits iOSLibSKNode
 
 	#tag Method, Flags = &h21
 		Private Function SKFieldForceEvaluatorBlockTemplate(Position as Vector_Float3, velocity as Vector_Float3, Mass as Single, Charge as Single, Time as Double) As single
-		  // This is a template for the CustomField constructor. 
+		  // This is a template for the CustomField constructor.
 		  // Use it to calculate your field's force from the values the block gets and return it as a single value.
 		  
 		End Function
@@ -325,14 +325,34 @@ Inherits iOSLibSKNode
 
 	#tag ViewBehavior
 		#tag ViewProperty
+			Name="AnimationSpeed"
+			Group="Behavior"
+			Type="Single"
+		#tag EndViewProperty
+		#tag ViewProperty
 			Name="DebugDescription"
 			Group="Behavior"
 			Type="Text"
 		#tag EndViewProperty
 		#tag ViewProperty
+			Name="Enabled"
+			Group="Behavior"
+			Type="Boolean"
+		#tag EndViewProperty
+		#tag ViewProperty
+			Name="Exclusive"
+			Group="Behavior"
+			Type="Boolean"
+		#tag EndViewProperty
+		#tag ViewProperty
 			Name="ExecutesActions"
 			Group="Behavior"
 			Type="Boolean"
+		#tag EndViewProperty
+		#tag ViewProperty
+			Name="Falloff"
+			Group="Behavior"
+			Type="Single"
 		#tag EndViewProperty
 		#tag ViewProperty
 			Name="HasOwnership"
@@ -369,6 +389,11 @@ Inherits iOSLibSKNode
 			Type="Boolean"
 		#tag EndViewProperty
 		#tag ViewProperty
+			Name="MinimumRadius"
+			Group="Behavior"
+			Type="Single"
+		#tag EndViewProperty
+		#tag ViewProperty
 			Name="Name"
 			Visible=true
 			Group="ID"
@@ -380,9 +405,19 @@ Inherits iOSLibSKNode
 			Type="Boolean"
 		#tag EndViewProperty
 		#tag ViewProperty
+			Name="Smoothness"
+			Group="Behavior"
+			Type="Single"
+		#tag EndViewProperty
+		#tag ViewProperty
 			Name="Speed"
 			Group="Behavior"
 			Type="Double"
+		#tag EndViewProperty
+		#tag ViewProperty
+			Name="Strength"
+			Group="Behavior"
+			Type="Single"
 		#tag EndViewProperty
 		#tag ViewProperty
 			Name="Super"

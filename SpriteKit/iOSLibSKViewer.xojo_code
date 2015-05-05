@@ -120,6 +120,21 @@ Implements iOSLibEventReceiver
 		End Sub
 	#tag EndMethod
 
+	#tag Method, Flags = &h0
+		Sub PresentScene(newScene as iOSLibSKSceneWithInterface, transition as iOSLibSKTransition)
+		  if mscene <> nil then
+		    mscene.RemoveObserver (self)
+		    if mScene.View <> nil then
+		      mscene.RemoveFromParent
+		    end if
+		  end if
+		  mScene = newScene
+		  mScene.RegisterObserver (self)
+		  mSKView.PresentScene (mScene, transition)
+		  
+		End Sub
+	#tag EndMethod
+
 	#tag Method, Flags = &h21
 		Private Sub ReceivedEvent(Details as iOSLibArray)
 		  // Part of the iOSLibEventReceiver interface.

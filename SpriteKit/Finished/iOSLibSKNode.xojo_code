@@ -749,13 +749,6 @@ Inherits iOSLibResponder
 	#tag EndComputedProperty
 
 
-	#tag Structure, Name = Vector_Float3, Flags = &h0
-		x as single
-		  y as single
-		z as single
-	#tag EndStructure
-
-
 	#tag Enum, Name = SKBlendMode, Type = Integer, Flags = &h0
 		Alpha
 		  Add
