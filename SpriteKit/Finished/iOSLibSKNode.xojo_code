@@ -477,6 +477,20 @@ Inherits iOSLibResponder
 	#tag ComputedProperty, Flags = &h0
 		#tag Getter
 			Get
+			  return Frame.Size_.height
+			End Get
+		#tag EndGetter
+		#tag Setter
+			Set
+			  frame.size_.height = value
+			End Set
+		#tag EndSetter
+		Height As Double
+	#tag EndComputedProperty
+
+	#tag ComputedProperty, Flags = &h0
+		#tag Getter
+			Get
 			  declare Function name lib SpriteKit selector "name" (id as ptr) as CFStringRef
 			  return name (id)
 			End Get
@@ -642,6 +656,20 @@ Inherits iOSLibResponder
 			End Set
 		#tag EndSetter
 		UserInteractionEnabled As Boolean
+	#tag EndComputedProperty
+
+	#tag ComputedProperty, Flags = &h0
+		#tag Getter
+			Get
+			  return Frame.Size_.width
+			End Get
+		#tag EndGetter
+		#tag Setter
+			Set
+			  frame.size_.width = value
+			End Set
+		#tag EndSetter
+		Width As Double
 	#tag EndComputedProperty
 
 	#tag ComputedProperty, Flags = &h0

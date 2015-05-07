@@ -17,6 +17,12 @@ Inherits ioslibobject
 	#tag EndMethod
 
 	#tag Method, Flags = &h1000
+		Sub Constructor(aURL as FolderItem)
+		  Constructor (new iOSLibURL(aurl))
+		End Sub
+	#tag EndMethod
+
+	#tag Method, Flags = &h1000
 		Sub Constructor(aURL as iOSLibURL)
 		  Declare function initWithURL lib AVFoundation selector "initWithURL:" (id as ptr, url as ptr) as ptr
 		  // Calling the overridden superclass constructor.
@@ -228,9 +234,9 @@ Inherits ioslibobject
 			  case AVLayerGravity.Fill
 			    myvalue = AVLayerVideoGravityResize
 			  case AVLayerGravity.FitProportional
-			    myvalue= AVLayerVideoGravityResizeAspect 
+			    myvalue= AVLayerVideoGravityResizeAspect
 			  case AVLayerGravity.FillProportional
-			    myvalue = AVLayerVideoGravityResizeAspectFill 
+			    myvalue = AVLayerVideoGravityResizeAspectFill
 			  end select
 			  ExternalPlaybackVideoGravityText = myvalue
 			End Set
@@ -379,6 +385,11 @@ Inherits ioslibobject
 			#tag EndEnumValues
 		#tag EndViewProperty
 		#tag ViewProperty
+			Name="AllowsExternalPlayback"
+			Group="Behavior"
+			Type="Boolean"
+		#tag EndViewProperty
+		#tag ViewProperty
 			Name="AutomaticMediaSelection"
 			Group="Behavior"
 			Type="Boolean"
@@ -392,6 +403,27 @@ Inherits ioslibobject
 			Name="DebugDescription"
 			Group="Behavior"
 			Type="Text"
+		#tag EndViewProperty
+		#tag ViewProperty
+			Name="ExternalPlaybackActive"
+			Group="Behavior"
+			Type="Boolean"
+		#tag EndViewProperty
+		#tag ViewProperty
+			Name="ExternalPlaybackVideoGravity"
+			Group="Behavior"
+			Type="AVLayerGravity"
+			EditorType="Enum"
+			#tag EnumValues
+				"0 - Fill"
+				"1 - FitProportional"
+				"2 - FillProportional"
+			#tag EndEnumValues
+		#tag EndViewProperty
+		#tag ViewProperty
+			Name="ExternalPlaybackWhileExternalScreenActive"
+			Group="Behavior"
+			Type="Boolean"
 		#tag EndViewProperty
 		#tag ViewProperty
 			Name="HasOwnership"

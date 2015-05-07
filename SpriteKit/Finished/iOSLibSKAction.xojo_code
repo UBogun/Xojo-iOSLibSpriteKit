@@ -168,6 +168,12 @@ Inherits iOSLibObject
 	#tag EndMethod
 
 	#tag Method, Flags = &h0
+		 Shared Function Group(paramarray ActionGroup() as iOSLibSKAction) As iOSLibSKAction
+		  return Group (iOSLibMutableArray.fromiOSLibObjects (ActionGroup))
+		End Function
+	#tag EndMethod
+
+	#tag Method, Flags = &h0
 		 Shared Function Hide() As iOSLibSKAction
 		  Declare function hide lib SpriteKit selector "hide" (id as ptr) as ptr
 		  dim result as new iOSLibSKAction (hide (classptr))

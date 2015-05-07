@@ -11,6 +11,12 @@ Inherits iOSLibSKNode
 	#tag EndMethod
 
 	#tag Method, Flags = &h1000
+		Sub Constructor(VIdeoURL as Folderitem)
+		  Constructor (new iosliburl(VIdeoURL))
+		End Sub
+	#tag EndMethod
+
+	#tag Method, Flags = &h1000
 		Sub Constructor(Player as iOSLibAVPlayer)
 		  Declare function initWithAVPlayer lib SpriteKit selector "initWithAVPlayer:" (id as ptr, player as Ptr) as ptr
 		  super.Constructor (initWithAVPlayer (alloc(ClassPtr), player.id))

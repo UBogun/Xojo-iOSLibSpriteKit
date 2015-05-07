@@ -29,6 +29,12 @@ Inherits iOSLibSKNode
 		End Sub
 	#tag EndMethod
 
+	#tag Method, Flags = &h0
+		Sub FontColor(assigns aColor as Color)
+		  me.FontColor = new iOSLibColor(aColor)
+		End Sub
+	#tag EndMethod
+
 
 	#tag ComputedProperty, Flags = &h0
 		#tag Getter

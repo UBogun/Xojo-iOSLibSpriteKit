@@ -68,13 +68,13 @@ Inherits ioslibobject
 		 Shared Function NoiseTexture(Smoothness as Double, Size as NSSize, grayscale as boolean = false) As iOSLibSKTexture
 		  dim result as ioslibsktexture
 		  #if Target64Bit
-		    Declare function textureVectorNoiseWithSmoothness lib SpriteKit selector "textureVectorNoiseWithSmoothness:size:grayscale:" _
+		    Declare function textureNoiseWithSmoothness lib SpriteKit selector "textureNoiseWithSmoothness:size:grayscale:" _
 		    (id as ptr, Smoothness as Double, size as NSSize, grayscale as boolean) as ptr
-		    result =  new ioslibsktexture (textureVectorNoiseWithSmoothness (ClassPtr, Smoothness, Size, grayscale))
+		    result =  new ioslibsktexture (textureNoiseWithSmoothness (ClassPtr, Smoothness, Size, grayscale))
 		  #elseif Target32Bit
-		    Declare function textureVectorNoiseWithSmoothness lib SpriteKit selector "textureVectorNoiseWithSmoothness:size:grayscale:" _
+		    Declare function textureNoiseWithSmoothness lib SpriteKit selector "textureNoiseWithSmoothness:size:grayscale:" _
 		    (id as ptr, Smoothness as Single, size as NSSize32Bit, grayscale as boolean) as ptr
-		    result =  new ioslibsktexture (textureVectorNoiseWithSmoothness (ClassPtr, Smoothness, Size.toNSSize32, grayscale))
+		    result =  new ioslibsktexture (textureNoiseWithSmoothness (ClassPtr, Smoothness, Size.toNSSize32, grayscale))
 		  #endif
 		  result.RetainClassObject
 		  return result
